@@ -7,11 +7,11 @@ Dialog boxes for Bootstrap.
 
 - Alert:
 
-      bootdiag.alert("Hi there");
+        bootdiag.alert("Hi there");
 
 - Customized prompt:
 
-      bootdiag({
+        bootdiag({
             title: "Add image",
             content: [
                 { p: {text: "Insert image info here:"}},
