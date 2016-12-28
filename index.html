@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>BootDiag</title>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta charset="UTF-8">
+		
+		<link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+
+		<script src="jquery-1.10.2.js"></script>
+		<script src="bootstrap.min.js"></script>
+		<script src="bootdiag.js"></script>
+    </head>
+    <body>
+		<script type="text/javascript">
+			window.onload = function() {
+				bootdiag({
+					title: "Add image",
+					content: [
+						{ p: {text: "Insert image info here:"}},
+						{ input: {type: "text", label: "Title", placeholder: "Description for image"}},
+						{ input: {type: "text", label: "Link", placeholder: "Hyperlink for image"}}],
+					buttons: ["cancel", "ok"],
+					ok: function(data) {},
+					cancel: function(data) {},
+					yes: function(data) {},
+					no: function(data) {},
+				});
+
+				bootdiag.alert("Hey galera");
+			}
+		</script>
+    </body>
+</html>
