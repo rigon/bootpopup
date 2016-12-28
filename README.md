@@ -5,9 +5,19 @@ Dialog boxes for Bootstrap.
 
 ## Examples
 
+Open `index.html` to see the library in action.
+
 - Alert:
 
         bootdiag.alert("Hi there");
+
+- Confirm:
+        
+        bootdiag.confirm("Do you confirm this message?");
+
+- Prompt:
+		
+        bootdiag.prompt("Name");
 
 - Customized prompt:
 
@@ -15,11 +25,9 @@ Dialog boxes for Bootstrap.
             title: "Add image",
             content: [
                 { p: {text: "Insert image info here:"}},
-                { input: {type: "text", label: "Title", placeholder: "Description for image"}},
-                { input: {type: "text", label: "Link", placeholder: "Hyperlink for image"}}],
-            buttons: ["cancel", "ok"],
-            ok: function(data) {},
-            cancel: function(data) {},
-            yes: function(data) {},
-            no: function(data) {},
+                { input: {type: "text", label: "Title", name: "title", placeholder: "Description for image"}},
+                { input: {type: "text", label: "Link", name: "link", placeholder: "Hyperlink for image"}}],
+            cancel: function(data) { alert("Cancel"); },
+            ok: function(data,e) { console.log(data,e); },
+            complete: function() { alert("complete"); },
         });
