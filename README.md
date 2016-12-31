@@ -2,6 +2,10 @@
 
 Dialog boxes for Bootstrap.
 
+## Demos
+
+See the demos in the Homepage: http://www.bootdiag.tk
+
 
 ## Examples
 
