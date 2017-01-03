@@ -1,10 +1,10 @@
-# BootDiag
+# BootPopup
 
-Dialog boxes for Bootstrap.
+Popup dialog boxes for Bootstrap.
 
 ## Demos
 
-See the demos in the Homepage: http://www.bootdiag.tk
+See the demos in the Homepage: http://www.bootpopup.tk
 
 
 ## Examples
@@ -13,19 +13,19 @@ Open `index.html` to see the library in action.
 
 - Alert:
 
-        bootdiag.alert("Hi there");
+        bootpopup.alert("Hi there");
 
 - Confirm:
         
-        bootdiag.confirm("Do you confirm this message?");
+        bootpopup.confirm("Do you confirm this message?");
 
 - Prompt:
 		
-        bootdiag.prompt("Name");
+        bootpopup.prompt("Name");
 
 - Customized prompt:
 
-        bootdiag({
+        bootpopup({
             title: "Add image",
             content: [
                 { p: {text: "Insert image info here:"}},
