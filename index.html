@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>BootDiag</title>
+		<title>BootPopup - Popup dialog boxes for Bootstrap</title>
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta charset="UTF-8">
@@ -10,12 +10,12 @@
 
 		<script src="jquery-1.10.2.js"></script>
 		<script src="bootstrap.min.js"></script>
-		<script src="bootdiag.js"></script>
+		<script src="bootpopup.js"></script>
     </head>
     <body>
 		<script type="text/javascript">
 			window.onload = function() {
-				bootdiag({
+				bootpopup({
 					title: "Add image",
 					content: [
 						{ p: {text: "Insert image info here:"}},
@@ -26,9 +26,9 @@
 					complete: function() { alert("complete"); },
 				});
 
-				bootdiag.alert("You are now alerted by this message!");
-				bootdiag.confirm("Do you confirm this message?", null, function(ans) { alert(ans); });
-				bootdiag.prompt("Name", null, null, null, function(ans) { console.log(ans); });
+				bootpopup.alert("You are now alerted by this message!");
+				bootpopup.confirm("Do you confirm this message?", null, function(ans) { alert(ans); });
+				bootpopup.prompt("Name", null, null, null, function(ans) { console.log(ans); });
 			}
 		</script>
     </body>

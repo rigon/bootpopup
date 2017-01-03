@@ -1,7 +1,7 @@
 {
-  "name": "bootdiag",
-  "main": "bootdiag.js",
-  "homepage": "http://www.bootdiag.tk",
+  "name": "bootpopup",
+  "main": "bootpopup.js",
+  "homepage": "http://www.bootpopup.tk",
   "authors": [
     "rigon <ricardompgoncalves@gmail.com>"
   ],

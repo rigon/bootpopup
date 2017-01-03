@@ -1,8 +1,8 @@
 
-var bootdiagFormCounter = 0;
+var bootpopupFormCounter = 0;
 
-function bootdiag(options) {
-    bootdiagFormCounter++;
+function bootpopup(options) {
+    bootpopupFormCounter++;
 
     var opts = {
         title: "",
@@ -36,7 +36,7 @@ function bootdiag(options) {
     }
 
 
-    var modalWindow = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bootdiag-title"></div>');
+    var modalWindow = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bootpopup-title"></div>');
     var dialog = $('<div class="modal-dialog" role="document"></div>');
     var content = $('<div class="modal-content"></div>');
     dialog.append(content);
@@ -45,14 +45,14 @@ function bootdiag(options) {
     // Header
     var header = $('<div class="modal-header"></div>');
     if(opts.showclose)
-        header.append('<button type="button" class="bootdiag-button close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
-    header.append('<h4 class="modal-title" id="bootdiag-title">' + opts.title + '</h4>');
+        header.append('<button type="button" class="bootpopup-button close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
+    header.append('<h4 class="modal-title" id="bootpopup-title">' + opts.title + '</h4>');
 
     content.append(header);
     
     // Body
     var body = $('<div class="modal-body"></div>').appendTo(content);
-    var form = $("<form></form>", { id: "bootdiag-form" + bootdiagFormCounter, class: "form-horizontal" }).appendTo(body);
+    var form = $("<form></form>", { id: "bootpopup-form" + bootpopupFormCounter, class: "form-horizontal" }).appendTo(body);
 
     for(element in opts.content) {
         for(type in opts.content[element]) {
@@ -60,7 +60,7 @@ function bootdiag(options) {
             
             switch(type) {
                 case "input":
-                    var inputID = (typeof attrs.id === "undefined" ? "bootdiag-form-input" + element : attrs.id);
+                    var inputID = (typeof attrs.id === "undefined" ? "bootpopup-form-input" + element : attrs.id);
                     attrs.id = inputID;
                     attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
                     attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
@@ -108,7 +108,7 @@ function bootdiag(options) {
             class: "btn " + btnClass,
             "data-dismiss": "modal",
             "data-callback": item,
-            "data-form": "#bootdiag-form" + bootdiagFormCounter,
+            "data-form": "#bootpopup-form" + bootpopupFormCounter,
             click: function(e) {
                 var callback = opts[$(e.target).attr("data-callback")];
                 var form = $(e.target).attr("data-form");
@@ -123,22 +123,22 @@ function bootdiag(options) {
 }
 
 
-bootdiag.alert = function(message, title) {
+bootpopup.alert = function(message, title) {
     if(typeof title !== "string")
         title = document.title;
     
-    bootdiag({
+    bootpopup({
         title: title,
         content: [{ p: {text: message}}]
     });
 }
 
-bootdiag.confirm = function(message, title, answerCallback) {
+bootpopup.confirm = function(message, title, answerCallback) {
     if(typeof title !== "string")
         title = document.title;
     
     var isYes = false;
-    bootdiag({
+    bootpopup({
         title: title,
         content: [{ p: {text: message}}],
         buttons: ["no", "yes"],
@@ -147,7 +147,7 @@ bootdiag.confirm = function(message, title, answerCallback) {
     });
 }
 
-bootdiag.prompt = function(label, type, message, title, onOKCallback) {
+bootpopup.prompt = function(label, type, message, title, onOKCallback) {
     if(typeof type !== "string")
         type = "text";
     if(typeof message !== "string")
@@ -157,7 +157,7 @@ bootdiag.prompt = function(label, type, message, title, onOKCallback) {
     if(typeof onOKCallback !== "function")
         onOKCallback = function() {};
     
-    bootdiag({
+    bootpopup({
         title: title,
         content: [
             { p: {text: message}},
