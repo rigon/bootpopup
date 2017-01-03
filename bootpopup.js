@@ -158,6 +158,7 @@ bootpopup.confirm = function(message, title, answerCallback) {
     var isYes = false;
     bootpopup({
         title: title,
+        showclose: false,
         content: [{ p: {text: message}}],
         buttons: ["no", "yes"],
         yes: function(data) { isYes = true; answerCallback("yes"); },
