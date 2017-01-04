@@ -77,28 +77,30 @@ function bootpopup(options) {
             var attrs = opts.content[element][type];
             
             switch(type) {
+                /* // List of input types
+                case "button": case "checkbox": case "color": case "date": case "datetime-local": 
+                case "email": case "file": case "hidden": case "image": case "month": case "number":
+                case "password": case "radio": case "range": case "reset": case "search":
+                case "submit": case "tel": case "text": case "time": case "url": case "week": */
+                case "button": case "text": case "submit": case "color": case "date": case "password": 
+                case "hidden": case "file": case "number": case "email": case "reset":
+                    attrs.type = type;
+                    // Continue for input
                 case "input":
-                    var inputID = (typeof attrs.id === "undefined" ? "bootpopup-form-input" + element : attrs.id);
-                    attrs.id = inputID;
+                    attrs.id = (typeof attrs.id === "undefined" ? "bootpopup-form-input" + element : attrs.id);
                     attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
                     attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
 
                     // Form Group
                     var formGroup = $('<div class="form-group"></div>').appendTo(form);
                     // Label
-                    $("<label></label>", { for: inputID, class: "col-sm-2 control-label", text: attrs.label}).appendTo(formGroup);
+                    $("<label></label>", { for: attrs.id, class: "col-sm-2 control-label", text: attrs.label}).appendTo(formGroup);
                     // Input and div to control width
                     var divColSm = $('<div class="col-sm-10"></div>').appendTo(formGroup);
                     $("<input />", attrs).appendTo(divColSm);
                     break;
                 default:
                     form.append($("<" + type + ">", attrs));
-                
-                /* // List of input types
-                case "button": case "checkbox": case "color": case "date": case "datetime-local": 
-                case "email": case "file": case "hidden": case "image": case "month": case "number":
-                case "password": case "radio": case "range": case "reset": case "search":
-                case "submit": case "tel": case "text": case "time": case "url": case "week": */
             }
         }
     }

@@ -20,7 +20,8 @@
 					content: [
 						{ p: {text: "Insert image info here:"}},
 						{ input: {type: "text", label: "Title", name: "title", placeholder: "Description for image"}},
-						{ input: {type: "text", label: "Link", name: "link", placeholder: "Hyperlink for image"}}],
+						{ input: {type: "text", label: "Link", name: "link", placeholder: "Hyperlink for image"}},
+						{ password: {label: "Password", name: "pass", placeholder: "Password"}}],
 					cancel: function(data) { alert("Cancel"); },
 					ok: function(data,e) { console.log(data,e); },
 					complete: function() { alert("complete"); },
