@@ -27,6 +27,7 @@ function bootpopup(options) {
         showclose: true,
         content: [],
         buttons: ["close"],
+        dismiss: function(data) {},
         close: function(data) {},
         ok: function(data) {},
         cancel: function(data) {},
@@ -139,6 +140,7 @@ function bootpopup(options) {
 
     // Fire the modal window
     modalWindow.modal();
+    modalWindow.on('hide.bs.modal', function (e) { opts.dismiss(e); });
     modalWindow.on('hidden.bs.modal', function (e) { opts.complete(e); });
 }
 
@@ -157,14 +159,14 @@ bootpopup.confirm = function(message, title, answerCallback) {
     if(typeof title !== "string")
         title = document.title;
     
-    var isYes = false;
+    var answer = false;
     bootpopup({
         title: title,
         showclose: false,
         content: [{ p: {text: message}}],
         buttons: ["no", "yes"],
-        yes: function(data) { isYes = true; answerCallback("yes"); },
-        complete: function(data) { if(!isYes) answerCallback("no"); }
+        yes: function(data) { answer = true; },
+        dismiss: function(data) { answerCallback(answer); }
     });
 }
 
