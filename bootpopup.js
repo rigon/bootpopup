@@ -158,6 +158,8 @@ bootpopup.alert = function(message, title) {
 bootpopup.confirm = function(message, title, answerCallback) {
     if(typeof title !== "string")
         title = document.title;
+    if(typeof answerCallback !== "function")
+        answerCallback = function() {};
     
     var answer = false;
     bootpopup({
