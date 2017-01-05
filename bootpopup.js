@@ -155,11 +155,14 @@ bootpopup.alert = function(message, title) {
     });
 }
 
-bootpopup.confirm = function(message, title, answerCallback) {
+bootpopup.confirm = function(message, title, callback) {
+    if(typeof title === "function")
+        callback = title;
+
     if(typeof title !== "string")
         title = document.title;
-    if(typeof answerCallback !== "function")
-        answerCallback = function() {};
+    if(typeof callback !== "function")
+        callback = function() {};
     
     var answer = false;
     bootpopup({
@@ -168,19 +171,26 @@ bootpopup.confirm = function(message, title, answerCallback) {
         content: [{ p: {text: message}}],
         buttons: ["no", "yes"],
         yes: function(data) { answer = true; },
-        dismiss: function(data) { answerCallback(answer); }
+        dismiss: function(data) { callback(answer); }
     });
 }
 
-bootpopup.prompt = function(label, type, message, title, onOKCallback) {
+bootpopup.prompt = function(label, type, message, title, callback) {
+    if(typeof type === "function")
+        callback = type;
+    if(typeof message === "function")
+        callback = message;
+    if(typeof title === "function")
+        callback = title;
+
     if(typeof type !== "string")
         type = "text";
     if(typeof message !== "string")
         message = "Provide a " + type + " for:";
     if(typeof title !== "string")
         title = document.title;
-    if(typeof onOKCallback !== "function")
-        onOKCallback = function() {};
+    if(typeof callback !== "function")
+        callback = function() {};
     
     bootpopup({
         title: title,
@@ -188,6 +198,6 @@ bootpopup.prompt = function(label, type, message, title, onOKCallback) {
             { p: {text: message}},
             { input: {type: type, name: "value", label: label}}],
         buttons: ["cancel", "ok"],
-        ok: onOKCallback
+        ok: callback
     });
 }
