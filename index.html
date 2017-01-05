@@ -12,25 +12,129 @@
 		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bootpopup.js"></script>
     </head>
-    <body>
-		<script type="text/javascript">
-			window.onload = function() {
-				bootpopup({
-					title: "Add image",
-					content: [
-						{ p: {text: "Insert image info here:"}},
-						{ input: {type: "text", label: "Title", name: "title", placeholder: "Description for image"}},
-						{ input: {type: "text", label: "Link", name: "link", placeholder: "Hyperlink for image"}},
-						{ password: {label: "Password", name: "pass", placeholder: "Password"}}],
-					cancel: function(data) { alert("Cancel"); },
-					ok: function(data,e) { console.log(data,e); },
-					complete: function() { alert("complete"); },
-				});
+    <body style="font-size: 1.65em">
+		
+		<!-- Fixed navbar -->
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand text-capitalize" href="http://www.bootpopup.tk">BootPopup</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Home</a></li>
+						<li><a href="#about">About</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="https://github.com/rigon/bootpopup">GitHub</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
-				bootpopup.alert("You are now alerted by this message!");
-				bootpopup.confirm("Do you confirm this message?", null, function(ans) { alert(ans); });
-				bootpopup.prompt("Name", null, null, null, function(ans) { console.log(ans); });
-			}
+		<!-- Main component for a primary marketing message or call to action -->
+		<div class="jumbotron text-center" style="padding-top: 90px; background-color: #f8f8f8;">
+			<h1 style="text-shadow: 0 1px 2px dimgray;">BootPopup</h1>
+			<p class="lead">Popup dialog boxes for Bootstrap.</p>
+			<p>
+				<a class="btn btn-lg btn-success" href="https://github.com/rigon/bootpopup/archive/master.zip" style="padding-left: 50px; padding-right: 50px;">
+					<span class="glyphicon glyphicon-download-alt"></span> Download latest
+				</a>
+			</p>
+			<p><small><a href="https://bower.io/search/?q=bootpopup">Available via bower</a></small></p>
+		</div>
+
+
+		<div class="container">
+			<p class="lead">
+				<b>BootPopup</b> is a JavaScript intended to simplify the task of creating
+				<a href="http://getbootstrap.com/javascript/#modals">Bootstrap modals</a>.
+			</p>
+			<p class="lead">Check out the <a href="#examples">examples</a> to see how easy it is!</p>
+
+
+			<h1 id⁼"how-to-use">How to use</h1>
+			<p>You can <a href="https://github.com/rigon/bootpopup/archive/master.zip">download</a> and extract the
+			archive into your project folder, <b>or</b></p>
+			<p>Install BootPopup through bower with:</p>
+			<pre>bower install --save bootpopup</pre>
+
+			<p>Then, include BootPopup in your HTML document. BootPopup requires <a href="https://jquery.com/">jQuery</a> and <a href="http://getbootstrap.com">Bootstrap</a>:</p>
+			<pre>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;bower_components/bootstrap/dist/css/bootstrap.min.css&quot; /&gt;
+&lt;script src=&quot;bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;bower_components/bootstrap/dist/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;bower_components/bootpopup/bootpopup.js&quot;&gt;&lt;/script&gt;</pre>
+
+
+			<h1 id="examples">Examples</h1>
+
+			<h2 id="alert">Alert</h2>
+			
+			<p>A simple alert:</p>
+			<p><pre>bootpopup.alert("You are now alerted by this message!");</pre></p>
+			<p><button id="example-alert-1" class="btn btn-primary">Run example</button></p><hr>
+			
+			<p>A alert with custom title:</p>
+			<p><pre>bootpopup.alert("You are now alerted by this message with a custom title!", "You are alerted");</pre></p>
+			<p><button id="example-alert-2" class="btn btn-primary">Run example</button></p><hr>
+
+
+			<h2 id="confirm">Confirm</h2>
+			
+			<p>A simple confirm:</p>
+			<p><pre>bootpopup.confirm("Do you confirm this message?");</pre></p>
+			<p><button id="example-confirm-1" class="btn btn-primary">Run example</button></p><hr>
+			
+			<p>A confirm with a custom title:</p>
+			<p><pre>bootpopup.confirm("Do you confirm this message with a custom title?", "Confirm this message");</pre></p>
+			<p><button id="example-confirm-2" class="btn btn-primary">Run example</button></p><hr>
+			
+			<p>A confirm with a callback and response:</p>
+			<p><pre>bootpopup.confirm("Do you confirm this message with a custom title?", "Confirm this message", function(ans) { alert(ans); });</pre></p>
+			<p><button id="example-confirm-3" class="btn btn-primary">Run example</button></p><hr>
+			
+			<p>Or if you want a callback without a custom title:</p>
+			<p><pre>bootpopup.confirm("Do you confirm this message with a callback?", function(ans) { alert(ans); });</pre></p>
+			<p><button id="example-confirm-4" class="btn btn-primary">Run example</button></p><hr>
+
+
+			<h2 id="Prompt">Prompt</h2>
+			
+			<p>A simple prompt:</p>
+			<p><pre>bootpopup.prompt("Name");</pre></p>
+			<p><button id="example-prompt-1" class="btn btn-primary">Run example</button></p><hr>
+			
+			<p>A confirm with a custom type of data:</p>
+			<p><pre>bootpopup.prompt("Age", "number");</pre></p>
+			<p><button id="example-prompt-2" class="btn btn-primary">Run example</button></p><hr>
+			
+			<p>A confirm with a custom message:</p>
+			<p><pre>bootpopup.prompt("Text", null, "Insert a random text:");</pre></p>
+			<p><button id="example-prompt-3" class="btn btn-primary">Run example</button></p><hr>
+			
+			<p>Or if you want a callback without a custom title:</p>
+			<p><pre>bootpopup.prompt("Text", null, null, "Insert a random text");</pre></p>
+			<p><button id="example-prompt-4" class="btn btn-primary">Run example</button></p><hr>
+
+		</div> <!-- /container -->
+
+
+		<script type="text/javascript">
+			$("#example-alert-1").click(function() { bootpopup.alert("You are now alerted by this message!"); });
+			$("#example-alert-2").click(function() { bootpopup.alert("You are now alerted by this message with a custom title!", "You are alerted"); });
+
+			$("#example-confirm-1").click(function() { bootpopup.confirm("Do you confirm this message?"); });
+			$("#example-confirm-2").click(function() { bootpopup.confirm("Do you confirm this message with a custom title?", "Confirm this message"); });
+			$("#example-confirm-3").click(function() { bootpopup.confirm("Do you confirm this message with a custom title?", "Confirm this message", function(ans) { alert(ans); }); });
+			$("#example-confirm-4").click(function() { bootpopup.confirm("Do you confirm this message with a callback?", function(ans) { alert(ans); }); });
+
+			$("#example-prompt-1").click(function() { bootpopup.prompt("Name"); });
+			$("#example-prompt-2").click(function() { bootpopup.prompt("Age", "number"); });
+			$("#example-prompt-3").click(function() { bootpopup.prompt("Text", null, "Insert a random text:"); });
+			$("#example-prompt-4").click(function() { bootpopup.prompt("Text", null, null, "Insert a random text"); });
 		</script>
     </body>
 </html>
