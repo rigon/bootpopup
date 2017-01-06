@@ -173,6 +173,21 @@
 			<pre><code class="js">bootpopup.prompt("Text", function(data,e) { alert(JSON.stringify(data)); });</code></pre>
 			<p><button id="example-prompt-4" class="btn btn-primary">Run example</button></p><hr>
 
+
+			<h2 id="customized">Customized dialog</h2>
+			<p>BootPopup is also highly customizable:</p>
+			<pre><code class="js">bootpopup({
+    title: &quot;Add image&quot;,
+    content: [
+        { p: {text: &quot;Insert image info here:&quot;}},
+        { input: {type: &quot;text&quot;, label: &quot;Title&quot;, name: &quot;title&quot;, placeholder: &quot;Description for image&quot;}},
+        { url: {label: &quot;Link&quot;, name: &quot;link&quot;, placeholder: &quot;Hyperlink for image&quot;}}],
+    cancel: function(data) { alert(&quot;Cancel&quot;); },
+    ok: function(data,e) { console.log(data,e); },
+    complete: function() { alert(&quot;complete&quot;); },
+});</code></pre>
+			<p><button id="example-customized-1" class="btn btn-primary">Run example</button></p><hr>
+
 		</div> <!-- /container -->
 
 
@@ -196,6 +211,25 @@
 			$("#example-prompt-2").click(function() { bootpopup.prompt("Age", "number"); });
 			$("#example-prompt-3").click(function() { bootpopup.prompt("Text", null, "Insert a random text:"); });
 			$("#example-prompt-4").click(function() { bootpopup.prompt("Text", function(data,e) { alert(JSON.stringify(data)); }); });
+
+			$("#example-customized-1").click(function() {
+				bootpopup({
+					title: "Add image",
+					content: [
+						{ p: {text: "Insert image info here:"}},
+						{ input: {type: "text", label: "Title", name: "title", id: "title", placeholder: "Description for image"}},
+						{ url: {label: "Link", name: "link", id: "link", placeholder: "Hyperlink for image"}},
+						{ button: {label: "", name: "button", value: "Open image", class: "btn btn-info", onclick: function() {
+								bootpopup({
+									title: $('#title').val(),
+									content: [ { img: {src: $('#link').val()}} ]});
+							}
+						}}],
+					cancel: function(data,e) { alert("Cancel"); },
+					ok: function(data,e) { alert(JSON.stringify(data)); },
+					complete: function() { alert("Complete"); },
+				});
+			});
 		</script>
     </body>
 </html>
