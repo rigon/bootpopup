@@ -77,6 +77,10 @@ function bootpopup(options) {
         for(type in opts.content[element]) {
             var attrs = opts.content[element][type];
             
+            for(attribute in attrs)
+                if(typeof attrs[attribute] === "function")
+                    attrs[attribute] = "("+ attrs[attribute] + ")()";
+
             switch(type) {
                 /* // List of input types
                 case "button": case "checkbox": case "color": case "date": case "datetime-local": 
