@@ -31,6 +31,9 @@
 				padding-left: 60px;
 				padding-right: 60px;
 			}
+			.navbar a img {
+				width: 18px;
+			}
 			.navbar a u {
 				color: #337ab7;
 			}
@@ -38,6 +41,8 @@
 				border: 1px solid black;
 				color: #eee;
 				background: #221a0f;
+				font-size: 15px;
+				font-weight: bold;
 			}
 			hr {
 				margin: 30px 0px 30px 0px;
@@ -49,7 +54,7 @@
     <body>
 		
 		<!-- Fixed navbar -->
-		<nav class="navbar navbar-default navbar-fixed-top" id="home">
+		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -59,23 +64,23 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="#home">Home</a></li>
-						<li><a href="#about">About</a></li>
-						<li><a href="#howtouse">How to Use</a></li>
+						<li><a href="#home" data-scrollto="body,html">Home</a></li>
+						<li><a href="#how-to-use" data-scrollto="#how-to-use">How to Use</a></li>
 						<li class="dropdown">
           					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 								  Examples <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="#alert">Alert</a></li>
-								<li><a href="#confirm">Confirm</a></li>
-								<li><a href="#prompt">Prompt</a></li>
-								<li><a href="#customized">Customized</a></li>
+								<li><a href="#alert" data-scrollto="#alert">Alert</a></li>
+								<li><a href="#confirm" data-scrollto="#confirm">Confirm</a></li>
+								<li><a href="#prompt" data-scrollto="#prompt">Prompt</a></li>
+								<li><a href="#customized" data-scrollto="#customized">Customized</a></li>
 							</ul>
 						</li>
+						<li><a href="https://github.com/rigon/bootpopup/blob/master/README.md#api">API <small class="glyphicon glyphicon-new-window"></small></a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="https://github.com/rigon/bootpopup">GitHub</a></li>
+						<li><a href="https://github.com/rigon/bootpopup"><img src="https://assets-cdn.github.com/favicon.ico" /> View on GitHub</a></li>
 						<li><a href="http://www.rigon.tk">by <u>rigon</u></a></li>
 					</ul>
 				</div>
@@ -96,14 +101,14 @@
 
 
 		<div class="container">
-			<p class="lead" id="about">
+			<p class="lead">
 				<b>BootPopup</b> is a JavaScript library intended to simplify the task of creating
 				<a href="http://getbootstrap.com/javascript/#modals">Bootstrap modals</a>.
 			</p>
-			<p class="lead">Check out the <a href="#examples">examples</a> to see how easy it is!</p>
+			<p class="lead">Check out the <a href="#examples" data-scrollto="#examples">examples</a> to see how easy it is!</p>
 
 
-			<h1 id⁼"howtouse">How to use</h1>
+			<h1 id="how-to-use">How to Use</h1>
 			<p>You can <a href="https://github.com/rigon/bootpopup/archive/master.zip">download</a> and extract the
 			archive into your project folder, <b>or</b></p>
 			<p>Install BootPopup through bower with:</p>
@@ -142,7 +147,7 @@
 			<p><button id="example-confirm-2" class="btn btn-primary">Run example</button></p><hr>
 			
 			<p>A confirm with a callback and response:</p>
-			<pre><code class="js">bootpopup.confirm("Do you confirm this message with a custom title?", "Confirm this message", function(ans) { alert(ans); });</code></pre>
+			<pre><code class="js">bootpopup.confirm("Do you confirm this message?", "Confirm this message", function(ans) { alert(ans); });</code></pre>
 			<p><button id="example-confirm-3" class="btn btn-primary">Run example</button></p><hr>
 			
 			<p>Or if you want a callback without a custom title:</p>
@@ -172,12 +177,19 @@
 
 
 		<script type="text/javascript">
+			$('a[data-scrollto]').click(function(event) {
+				//event.preventDefault();
+				var target = $(this).data('scrollto');
+				var position = $(target).offset().top - 70;		// Target position - navbar height
+				$('html, body').animate({ scrollTop: position });
+			});
+
 			$("#example-alert-1").click(function() { bootpopup.alert("You are now alerted by this message!"); });
 			$("#example-alert-2").click(function() { bootpopup.alert("You are now alerted by this message with a custom title!", "You are alerted"); });
 
 			$("#example-confirm-1").click(function() { bootpopup.confirm("Do you confirm this message?"); });
 			$("#example-confirm-2").click(function() { bootpopup.confirm("Do you confirm this message with a custom title?", "Confirm this message"); });
-			$("#example-confirm-3").click(function() { bootpopup.confirm("Do you confirm this message with a custom title?", "Confirm this message", function(ans) { alert(ans); }); });
+			$("#example-confirm-3").click(function() { bootpopup.confirm("Do you confirm this message?", "Confirm this message", function(ans) { alert(ans); }); });
 			$("#example-confirm-4").click(function() { bootpopup.confirm("Do you confirm this message with a callback?", function(ans) { alert(ans); }); });
 
 			$("#example-prompt-1").click(function() { bootpopup.prompt("Name"); });
