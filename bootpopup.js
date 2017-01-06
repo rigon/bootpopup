@@ -83,8 +83,8 @@ function bootpopup(options) {
                 case "email": case "file": case "hidden": case "image": case "month": case "number":
                 case "password": case "radio": case "range": case "reset": case "search":
                 case "submit": case "tel": case "text": case "time": case "url": case "week": */
-                case "button": case "text": case "submit": case "color": case "date": case "password": 
-                case "hidden": case "file": case "number": case "email": case "reset":
+                case "button": case "text": case "submit": case "color": case "url": case "password": 
+                case "hidden": case "file": case "number": case "email": case "reset": case "date":
                     attrs.type = type;
                     // Continue for input
                 case "input":
