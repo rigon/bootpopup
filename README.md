@@ -54,6 +54,29 @@ Shows a prompt dialog box, asking to input a value.
   - `(function)(answer)`
 
 
+### bootpopup(options)
+
+Shows a cusmtomized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `bootpopup.prompt` are mapped into this function.
+
+- **Options:** (array)
+
+  | Name      | Type     | Default           | Example        | Description
+  |-----------|----------|-------------------|----------------|------------
+  | title     | string   | document.title    | "A title"      | 
+  | showclose | boolean  | true              | "false"        | 
+  | content   | array    | []                | [ {p}, {p} ]   | 
+  | buttons   | array    | ["close"]         | [ "yes", "no"] | 
+  | dismiss   | function | function(data) {} |                | 
+  | close     | function | function(data) {} |                | 
+  | ok        | function | function(data) {} |                | 
+  | cancel    | function | function(data) {} |                | 
+  | yes       | function | function(data) {} |                | 
+  | no        | function | function(data) {} |                | 
+  | complete  | function | function(data) {} |                | 
+  
+  
+
+
 ## Examples
 
 Open `index.html` to see the library in action.
