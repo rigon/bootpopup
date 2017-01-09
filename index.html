@@ -43,6 +43,13 @@
 				background: #221a0f;
 				font-size: 15px;
 				font-weight: bold;
+				padding: 0;
+			}
+			pre code {
+				white-space: pre;
+			}
+			.hljs {
+				padding: 1em;
 			}
 			hr {
 				margin: 30px 0px 30px 0px;
@@ -112,7 +119,7 @@
 			<p>You can <a href="https://github.com/rigon/bootpopup/archive/master.zip">download</a> and extract the
 			archive into your project folder, <b>or</b></p>
 			<p>Install BootPopup through bower with:</p>
-			<pre>bower install --save bootpopup</pre>
+			<pre><code class="bash">bower install --save bootpopup</code></pre>
 
 			<p>Then, include BootPopup in your HTML document. BootPopup requires <a href="https://jquery.com/">jQuery</a> and <a href="http://getbootstrap.com">Bootstrap</a>:</p>
 			<pre><code class="html">&lt;!-- jQuery and bootstrap --&gt;
