@@ -87,14 +87,15 @@ The biggest flexibility of BootPopup is the `content` option. The content is wra
 
 `content` is an array of objects and each object is represented as an entry of the form. For example, if you have the following object:
 
-    { p: {class: "bold", text: "Insert data:"}}
+```javascript
+{ p: {class: "bold", text: "Insert data:"}}
+```
 
 This will add a `<p></p>` tag to the form. The options of `p` (`{class: "bold", text: "Insert data:"}`) are HTML attributes passed to the HTML tag. There is a speciall attribute for `text` which is defined as the inner text of the HTML tag. So, this example is equivalent to the following HTML:
-
-    <p class="bold">Insert data:</p>
-
-
-
+  
+```html
+<p class="bold">Insert data:</p>
+```
 
 
 ## Examples
@@ -103,25 +104,33 @@ Open `index.html` to see the library in action.
 
 - Alert:
 
-        bootpopup.alert("Hi there");
+  ```javascript
+  bootpopup.alert("Hi there");
+  ```
 
 - Confirm:
-        
-        bootpopup.confirm("Do you confirm this message?");
+
+  ```javascript
+  bootpopup.confirm("Do you confirm this message?");
+  ```
 
 - Prompt:
-		
-        bootpopup.prompt("Name");
+
+  ```javascript		
+  bootpopup.prompt("Name");
+  ```
 
 - Customized prompt:
 
-        bootpopup({
-            title: "Add image",
-            content: [
-                { p: {text: "Insert image info here:"}},
-                { input: {type: "text", label: "Title", name: "title", placeholder: "Description for image"}},
-                { input: {type: "text", label: "Link", name: "link", placeholder: "Hyperlink for image"}}],
-            cancel: function(data) { alert("Cancel"); },
-            ok: function(data,e) { console.log(data,e); },
-            complete: function() { alert("complete"); },
-        });
+  ```javascript
+  bootpopup({
+      title: "Add image",
+      content: [
+          { p: {text: "Insert image info here:"}},
+          { input: {type: "text", label: "Title", name: "title", placeholder: "Description for image"}},
+          { input: {type: "text", label: "Link", name: "link", placeholder: "Hyperlink for image"}}],
+      cancel: function(data) { alert("Cancel"); },
+      ok: function(data,e) { console.log(data,e); },
+      complete: function() { alert("complete"); },
+  });
+  ```
