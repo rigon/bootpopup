@@ -60,19 +60,19 @@ Shows a cusmtomized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `boot
 
 - **Options:** (array)
 
-  | Name      | Type     | Default           | Example        | Description
-  |-----------|----------|-------------------|----------------|------------
-  | title     | string   | document.title    | "A title"      | 
-  | showclose | boolean  | true              | "false"        | 
-  | content   | array    | []                | [ {p}, {p} ]   | 
-  | buttons   | array    | ["close"]         | [ "yes", "no"] | 
-  | dismiss   | function | function(data) {} |                | 
-  | close     | function | function(data) {} |                | 
-  | ok        | function | function(data) {} |                | 
-  | cancel    | function | function(data) {} |                | 
-  | yes       | function | function(data) {} |                | 
-  | no        | function | function(data) {} |                | 
-  | complete  | function | function(data) {} |                | 
+  | Name      | Type     | Default             | Example          | Description
+  |-----------|----------|---------------------|------------------|------------
+  | title     | string   | `document.title`    | `"A title"`      | Title of the dialog box
+  | showclose | boolean  | `true`              | `"false"`        | Show or not the close button in the title
+  | content   | array    | `[]`                | `[ {p}, {p} ]`   | Content of the dialog box. See the notes bellow for full information
+  | buttons   | array    | `["close"]`         | `[ "yes", "no"]` | List of buttons to show in the bottom of the dialog box. The possible options are: `close`, `ok`, `camcel`, `yes`, `no`
+  | dismiss   | function | `function(data) {}` |                  | Called when the window is dismissed
+  | close     | function | `function(data) {}` |                  | Called when OK button is selected
+  | ok        | function | `function(data) {}` |                  | Called when OK button is selected
+  | cancel    | function | `function(data) {}` |                  | Called when Cancel button is selected
+  | yes       | function | `function(data) {}` |                  | Called when Yes button is selected
+  | no        | function | `function(data) {}` |                  | Called when No button is selected
+  | complete  | function | `function(data) {}` |                  | This function is always called when the dialog box has completed
   
   
 
