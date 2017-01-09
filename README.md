@@ -45,7 +45,7 @@ Shows a prompt dialog box, asking to input a value.
   - `(string)` type of the value being asked. This corresponds to the [HTML input types](http://www.w3schools.com/tags/att_input_type.asp). Default value is `text`
   - `(function)(answer)`
 - **message**:
-  - `(string)` message shown before the asked value. Default value is *Provide a `type` for:*;
+  - `(string)` message shown before the asked value. Default value is *Provide a `type` for:*
   - `(function)(answer)`
 - **title**:
   - `(string)` title of the prompt dialog. Default value is page title
