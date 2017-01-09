@@ -149,13 +149,19 @@ function bootpopup(options) {
 }
 
 
-bootpopup.alert = function(message, title) {
+bootpopup.alert = function(message, title, callback) {
+    if(typeof title === "function")
+        callback = title;
+
     if(typeof title !== "string")
         title = document.title;
+    if(typeof callback !== "function")
+        callback = function() {};
     
     bootpopup({
         title: title,
-        content: [{ p: {text: message}}]
+        content: [{ p: {text: message}}],
+        dismiss: function(data) { callback(); }
     });
 }
 
