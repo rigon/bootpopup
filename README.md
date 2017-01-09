@@ -4,7 +4,15 @@ Popup dialog boxes for Bootstrap.
 
 ## Demos
 
-See the demos in the Homepage: http://www.bootpopup.tk
+See the demos in the Homepage: http://www.bootpopup.tk/#examples
+
+## API
+
+- `bootpopup.alert(message[, title[, callback])`
+
+  - **message**: `(string)` message of the alert
+  - **title**: `(string)` title of the alert; `(function)` callback when the alert is dismissed
+  - **callback**: `(function)` callback when the alert is dismissed
 
 
 ## Examples
