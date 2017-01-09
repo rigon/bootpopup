@@ -74,15 +74,15 @@ Shows a cusmtomized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `boot
 | no        | function | `function(data) {}` |                  | Callback when No button is selected
 | complete  | function | `function(data) {}` |                  | This function is always called when the dialog box has completed
 
-- Note for **buttons** option:
+#### Note for **buttons** option:
 
   If `buttons` is not specified, BootPopup will automatically select the buttons based on the defined callbacks. If some of the callbacks `close`, `ok`, `cancel`, `yes`, `no` are defined, the respective buttons are selected.
   
   For example, if you define `ok` and `cancel` callbacks, the option `buttons` is automatically configured to `["ok", "cancel"]`.
 
 
-- Note for **content** option:
-  
+#### Note for **content** option:
+
 
 
 
