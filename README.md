@@ -9,10 +9,16 @@ See the demos in the Homepage: http://www.bootpopup.tk/#examples
 ## API
 
 - `bootpopup.alert(message[, title[, callback])`
+  
+  Shows an alert dialog box.
 
-  - **message**: `(string)` message of the alert
-  - **title**: `(string)` title of the alert; `(function)` callback when the alert is dismissed
-  - **callback**: `(function)` callback when the alert is dismissed
+  - **message**:
+    - `(string)` message of the alert
+  - **title**:
+    - `(string)` title of the alert
+    - `(function)` callback when the alert is dismissed
+  - **callback**:
+    - `(function)` callback when the alert is dismissed
 
 
 ## Examples
