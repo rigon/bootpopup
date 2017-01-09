@@ -58,27 +58,31 @@ Shows a prompt dialog box, asking to input a value.
 
 Shows a cusmtomized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `bootpopup.prompt` are mapped into this function.
 
-- **Options:** (array)
+**Options:** `(obejct)`
 
-  | Name      | Type     | Default             | Example          | Description
-  |-----------|----------|---------------------|------------------|------------
-  | title     | string   | `document.title`    | `"A title"`      | Title of the dialog box
-  | showclose | boolean  | `true`              | `"false"`        | Show or not the close button in the title
-  | content   | array    | `[]`                | `[ {p}, {p} ]`   | Content of the dialog box. See the notes bellow for full information
-  | buttons   | array    | `["close"]`         | `[ "yes", "no"]` | List of buttons to show in the bottom of the dialog box. The possible options are: `close`, `ok`, `cancel`, `yes`, `no`
-  | dismiss   | function | `function(data) {}` |                  | Callback when the window is dismissed
-  | close     | function | `function(data) {}` |                  | Callback when OK button is selected
-  | ok        | function | `function(data) {}` |                  | Callback when OK button is selected
-  | cancel    | function | `function(data) {}` |                  | Callback when Cancel button is selected
-  | yes       | function | `function(data) {}` |                  | Callback when Yes button is selected
-  | no        | function | `function(data) {}` |                  | Callback when No button is selected
-  | complete  | function | `function(data) {}` |                  | This function is always called when the dialog box has completed
+| Name      | Type     | Default             | Example          | Description
+|-----------|----------|---------------------|------------------|------------
+| title     | string   | `document.title`    | `"A title"`      | Title of the dialog box
+| showclose | boolean  | `true`              | `"false"`        | Show or not the close button in the title
+| content   | array    | `[]`                | `[ {p}, {p} ]`   | Content of the dialog box. See the notes bellow for full information
+| buttons   | array    | `["close"]`         | `[ "yes", "no"]` | List of buttons to show in the bottom of the dialog box. The possible options are: `close`, `ok`, `cancel`, `yes`, `no`
+| dismiss   | function | `function(data) {}` |                  | Callback when the window is dismissed
+| close     | function | `function(data) {}` |                  | Callback when OK button is selected
+| ok        | function | `function(data) {}` |                  | Callback when OK button is selected
+| cancel    | function | `function(data) {}` |                  | Callback when Cancel button is selected
+| yes       | function | `function(data) {}` |                  | Callback when Yes button is selected
+| no        | function | `function(data) {}` |                  | Callback when No button is selected
+| complete  | function | `function(data) {}` |                  | This function is always called when the dialog box has completed
+
+- Note for **buttons** option:
+
+  If `buttons` is not specified, BootPopup will automatically select the buttons based on the defined callbacks. If some of the callbacks `close`, `ok`, `cancel`, `yes`, `no` are defined, the respective buttons are selected.
   
-    - Note for **buttons** option:
-    
-      If `buttons` is not specified, BootPopup will automatically select the buttons based on the defined callbacks. If some of the callbacks `close`, `ok`, `cancel`, `yes`, `no` are defined, the respective buttons are selected. For example, if you define `ok` and `cancel` callbacks, the option `buttons` is automatically configured to `["ok", "cancel"]`.
+  For example, if you define `ok` and `cancel` callbacks, the option `buttons` is automatically configured to `["ok", "cancel"]`.
+
+
+- Note for **content** option:
   
-    - Note for **content** option:
 
 
 
