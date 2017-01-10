@@ -54,7 +54,7 @@ Shows a prompt dialog box, asking to input a value.
   - `(function)(answer)`
 
 
-### bootpopup(options)
+### `bootpopup(options)`
 
 Shows a cusmtomized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `bootpopup.prompt` are mapped into this function.
 
@@ -63,7 +63,7 @@ Shows a cusmtomized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `boot
 | Name      | Type     | Default             | Example          | Description
 |-----------|----------|---------------------|------------------|------------
 | title     | string   | `document.title`    | `"A title"`      | Title of the dialog box
-| showclose | boolean  | `true`              | `"false"`        | Show or not the close button in the title
+| showclose | boolean  | `true`              | `false`          | Show or not the close button in the title
 | content   | array    | `[]`                | `[ {p}, {p} ]`   | Content of the dialog box. See the [notes for full information](#note-for-content-option)
 | buttons   | array    | `["close"]`         | `[ "yes", "no"]` | List of buttons to show in the bottom of the dialog box. The possible options are: `close`, `ok`, `cancel`, `yes`, `no`. See [notes](#note-for-buttons-option)
 | dismiss   | function | `function(data) {}` |                  | Callback when the window is dismissed
