@@ -89,56 +89,55 @@ The biggest flexibility of BootPopup is the `content` option. The content is wra
 bootstrap class `.form-horizontal` allowing to create complex forms very quickly. When you are submitting data
 via a dialog box, BootPopup will grab all that data and deliver to you through the callbacks.
 
-`content` is an array of objects and each object is represented as an entry of the form. For example, if you
-have the following object:
+1. `content` is an array of objects and each object is represented as an entry of the form. For example, if you
+   have the following object:
+   
+   ```javascript
+   { p: {class: "bold", text: "Insert data:"}}
+   ```
+   
+   This will add a `<p></p>` tag to the form. The options of `p` (`{class: "bold", text: "Insert data:"}`) are HTML
+   attributes passed to the HTML tag. There is a special attribute for `text` which is defined as the inner text of
+   the HTML tag. So, this example is equivalent to the following HTML:
+   
+   ```html
+   <p class="bold">Insert data:</p>
+   ```
 
-```javascript
-{ p: {class: "bold", text: "Insert data:"}}
-```
+2. But it is when it comes to adding inputs that things become easy. Look at this example:
+   
+   ```javascript
+   { input: {type: "text", label: "Title", name: "title", placeholder: "Description" }}
+   ```
+   
+   This will create an `input` element with the attributes `type: "text", label: "Title", name: "title", placeholder: "Description"`.
+   Note there is also a special attribute `label`. This attribute is used by BootPopup to create a label for the input form entry.
+   The above example is equivalent to the following HTML:
+   
+   ```html
+   <div class="form-group">
+     <label for="title" class="col-sm-2 control-label">Title</label>
+     <div class="col-sm-10">
+       <input label="Title" name="title" id="bootpopup-form-input" placeholder="Description" class="form-control" type="text">
+     </div>
+   </div>
+   ```
+   
+3. In order to make it even simpler, there are shortcuts for most common input types (`button`, `text`, `submit`, `color`,
+   `url`, `password`, `hidden`, `file`, `number`, `email`, `reset`, `date`).
+   The previous example can be simply written as:
+   
+   ```javascript
+   { text: {label: "Title", name: "title", placeholder: "Description" }}
+   ```
 
-This will add a `<p></p>` tag to the form. The options of `p` (`{class: "bold", text: "Insert data:"}`) are HTML
-attributes passed to the HTML tag. There is a special attribute for `text` which is defined as the inner text of
-the HTML tag. So, this example is equivalent to the following HTML:
-  
-```html
-<p class="bold">Insert data:</p>
-```
-
-But it is when it comes to adding inputs that things become easy. Look at this example:
-
-```javascript
-{ input: {type: "text", label: "Title", name: "title", placeholder: "Description" }}
-```
-
-This will create an `input` element with the attributes `type: "text", label: "Title", name: "title", placeholder: "Description"`.
-Note there is also a special attribute `label`. This attribute is used by BootPopup to create a label for the input form entry.
-The above example is equivalent to the following HTML:
-
-```html
-<div class="form-group">
-  <label for="title" class="col-sm-2 control-label">Title</label>
-  <div class="col-sm-10">
-    <input label="Title" name="title" id="bootpopup-form-input" placeholder="Description" class="form-control" type="text">
-  </div>
-</div>
-```
-
-In order to make it even simpler, there are shortcuts for most common input types (`button`, `text`, `submit`, `color`,
-`url`, `password`, `hidden`, `file`, `number`, `email`, `reset`, `date`).
-The previous example can be simply written as:
-
-```javascript
-{ text: {label: "Title", name: "title", placeholder: "Description" }}
-```
-Another useful feature is the ability to support functions directly as an attribute. Take the following `button` example:
-
-```javascript
-{ button: {name: "button", value: "Open image", class: "btn btn-info", onclick: function() {
-      bootpopup.alert("Hi there");
-    }
-  }
-}
-```
+4. Another useful feature is the ability to support functions directly as an attribute. Take the following `button` example:
+   
+   ```javascript
+   { button: {name: "button", value: "Open image", class: "btn btn-info", onclick: function() {
+     bootpopup.alert("Hi there");
+   }}}
+   ```
 
 
 ## Examples
