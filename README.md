@@ -58,7 +58,7 @@ Shows a prompt dialog box, asking to input a value.
 
 Shows a customized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `bootpopup.prompt` are mapped into this function.
 
-**Options:** `(obejct)`
+**Options:** `(object)`
 
 | Name      | Type     | Default             | Example          | Description
 |-----------|----------|---------------------|------------------|------------
