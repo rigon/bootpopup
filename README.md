@@ -43,15 +43,15 @@ Shows a prompt dialog box, asking to input a value.
   - `(string)` label of the value being asked
 - **type**:
   - `(string)` type of the value being asked. This corresponds to the [HTML input types](http://www.w3schools.com/tags/att_input_type.asp). Default value is `text`
-  - `(function)(answer)`
+  - `(function)(answer)` callback with the introduced data. This is only called when OK is pressed
 - **message**:
   - `(string)` message shown before the asked value. Default value is *Provide a `type` for:*
-  - `(function)(answer)`
+  - `(function)(answer)` callback with the introduced data. This is only called when OK is pressed
 - **title**:
   - `(string)` title of the prompt dialog. Default value is page title
-  - `(function)(answer)`
+  - `(function)(answer)` callback with the introduced data. This is only called when OK is pressed
 - **callback**:
-  - `(function)(answer)`
+  - `(function)(answer)` callback with the introduced data. This is only called when OK is pressed
 
 
 ### `bootpopup(options)`
