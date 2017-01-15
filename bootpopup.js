@@ -79,7 +79,7 @@ function bootpopup(options) {
             
             for(attribute in attrs)
                 if(typeof attrs[attribute] === "function")
-                    attrs[attribute] = "("+ attrs[attribute] + ")()";
+                    attrs[attribute] = "("+ attrs[attribute] + ")(this)";
 
             switch(type) {
                 /* // List of input types
