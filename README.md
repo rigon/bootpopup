@@ -134,10 +134,13 @@ via a dialog box, BootPopup will grab all that data and deliver to you through t
 4. Another useful feature is the ability to support functions directly as an attribute. Take the following `button` example:
    
    ```javascript
-   { button: {name: "button", value: "Open image", class: "btn btn-info", onclick: function() {
-     bootpopup.alert("Hi there");
+   { button: {name: "button", value: "Open image", class: "btn btn-info", onclick: function(obj) {
+       console.log(obj);
+       bootpopup.alert("Hi there");
    }}}
    ```
+   This will create a `onclick` event for the button. The reference for the object is passed as argument to the function.
+
 
 
 ## Examples
