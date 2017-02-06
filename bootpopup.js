@@ -23,7 +23,7 @@ function bootpopup(options) {
     bootpopupFormCounter++;
 
     var opts = {
-        title: "",
+        title: document.title,
         showclose: true,
         content: [],
         buttons: ["close"],
