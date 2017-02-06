@@ -56,6 +56,13 @@
 				border: none;
 				border-bottom: 1px dashed #eee;
 			}
+			#paypal-link {
+				padding-top: 12px;
+				padding-bottom: 12px;
+			}
+			#paypal-link > img {
+				width: 100%;
+			}
 		</style>
     </head>
     <body>
@@ -89,6 +96,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="https://github.com/rigon/bootpopup"><img src="https://assets-cdn.github.com/favicon.ico" /> View on GitHub</a></li>
 						<li><a href="http://www.rigon.tk">by <u>rigon</u></a></li>
+						<li><a href="#" id="paypal-link" title="Please donate - Help us to mantain this project!"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"></a></li>
 					</ul>
 				</div>
 			</div>
@@ -128,6 +136,10 @@
 &lt;script src=&quot;bower_components/bootstrap/dist/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
 &lt;!-- BootPopup --&gt;
 &lt;script src=&quot;bower_components/bootpopup/bootpopup.js&quot;&gt;&lt;/script&gt;</code></pre>
+
+			<p>See the full documentation about how to use BootPopup in the
+				<a href="https://github.com/rigon/bootpopup/blob/master/README.md#api">API section on GitHub <small class="glyphicon glyphicon-new-window"></small></a>
+			</p>
 
 
 			<h1 id="examples">Examples</h1>
@@ -242,6 +254,18 @@
 					ok: function(data,e) { alert(JSON.stringify(data)); },
 					complete: function() { alert("Complete"); },
 				});
+			});
+		</script>
+
+		<!-- PayPal Donations -->
+		<form id="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+			<input type="hidden" name="cmd" value="_s-xclick">
+			<input type="hidden" name="hosted_button_id" value="VNE5MMV2EA2Z4">
+		</form>
+		<script type="text/javascript">
+			$("#paypal-link").click(function(event) {
+				event.preventDefault();
+				$("#paypal-form").submit();
 			});
 		</script>
     </body>
