@@ -189,7 +189,7 @@
 			<p><button id="example-prompt-3" class="btn btn-primary">Run example</button></p><hr>
 			
 			<p>Or if you want a callback without a custom title and message:</p>
-			<pre><code class="js">bootpopup.prompt("Text", function(data,e) { alert(JSON.stringify(data)); });</code></pre>
+			<pre><code class="js">bootpopup.prompt("Text", function(data) { alert(data); });</code></pre>
 			<p><button id="example-prompt-4" class="btn btn-primary">Run example</button></p><hr>
 
 
@@ -208,8 +208,8 @@
                     content: [ { img: {src: $(&apos;#link&apos;).val()}} ]});
             }
         }}],
-    cancel: function(data,e) { alert(&quot;Cancel&quot;); },
-    ok: function(data,e) { alert(&quot;OK\n&quot; + JSON.stringify(data)); },
+    cancel: function(data, array, event) { alert(&quot;Cancel&quot;); },
+    ok: function(data, array, event) { alert(&quot;OK\n&quot; + JSON.stringify(data)); },
     complete: function() { alert(&quot;Complete&quot;); },
 });</code></pre>
 			<p><button id="example-customized-1" class="btn btn-primary">Run example</button></p><hr>
@@ -224,8 +224,8 @@
 		&apos;&lt;p class=&quot;lead&quot;&gt;Check out the &lt;a href=&quot;#examples&quot; data-scrollto=&quot;#examples&quot;&gt;examples&lt;/a&gt; to see how easy it is!&lt;/p&gt;&apos;,
 		&apos;Give us a rate 1-10:&apos;,
 		{ input: {type: &quot;number&quot;, label: &quot;Rate&quot;, name: &quot;rate&quot;, value: &quot;11&quot;}}],
-	cancel: function(data,e) { alert(&quot;Cancel&quot;); },
-	ok: function(data,e) { alert(&quot;OK\n&quot; + JSON.stringify(data)); },
+	cancel: function(data, array, event) { alert(&quot;Cancel&quot;); },
+	ok: function(data, array, event) { alert(&quot;OK\n&quot; + JSON.stringify(data)); },
 	complete: function() { alert(&quot;Complete&quot;); },
 });</code></pre>
 			<p><button id="example-customized-2" class="btn btn-primary">Run example</button></p><hr>
@@ -252,7 +252,7 @@
 			$("#example-prompt-1").click(function() { bootpopup.prompt("Name"); });
 			$("#example-prompt-2").click(function() { bootpopup.prompt("Age", "number"); });
 			$("#example-prompt-3").click(function() { bootpopup.prompt("Text", null, "Insert a random text:"); });
-			$("#example-prompt-4").click(function() { bootpopup.prompt("Text", function(data,e) { alert(JSON.stringify(data)); }); });
+			$("#example-prompt-4").click(function() { bootpopup.prompt("Text", function(data) { alert(data); }); });
 
 			$("#example-customized-1").click(function() {
 				bootpopup({
@@ -267,8 +267,8 @@
 									content: [ { img: {src: $('#link').val()}} ]});
 							}
 						}}],
-					cancel: function(data,e) { alert("Cancel"); },
-					ok: function(data,e) { alert("OK\n" + JSON.stringify(data)); },
+					cancel: function(data, array, event) { alert("Cancel"); },
+					ok: function(data,array, event) { alert("OK\n" + JSON.stringify(data)); },
 					complete: function() { alert("Complete"); },
 				});
 			});
@@ -283,8 +283,8 @@
 						'<p class="lead">Check out the <a href="#examples" data-scrollto="#examples">examples</a> to see how easy it is!</p>',
 						'Give us a rate 1-10:',
 						{ input: {type: "number", label: "Rate", name: "rate", value: "11"}}],
-					cancel: function(data,e) { alert("Cancel"); },
-					ok: function(data,e) { alert("OK\n" + JSON.stringify(data)); },
+					cancel: function(data, array, event) { alert("Cancel"); },
+					ok: function(data, array, event) { alert("OK\n" + JSON.stringify(data)); },
 					complete: function() { alert("Complete"); },
 				});
 			});

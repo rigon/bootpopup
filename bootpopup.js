@@ -16,11 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *************************************************************************/
 
-
-var bootpopupFormCounter = 0;
-
 function bootpopup(options) {
-    bootpopupFormCounter++;
+    // Create a global random ID for the form
+    this.formid = "bootpopup-form" + String(Math.random()).substr(2);
 
     var opts = {
         title: document.title,
@@ -71,21 +69,21 @@ function bootpopup(options) {
     
     // Body
     var body = $('<div class="modal-body"></div>').appendTo(content);
-    var form = $("<form></form>", { id: "bootpopup-form" + bootpopupFormCounter, class: "form-horizontal" }).appendTo(body);
+    var form = $("<form></form>", { id: this.formid, class: "form-horizontal" }).appendTo(body);
 
     // Iterate over entries
-    for(i in opts.content) {
+    for(var i in opts.content) {
         var entry = opts.content[i];
         switch(typeof entry) {
             case "string":
                 form.append(entry);
                 break;
             case "object":
-                for(type in entry) {
+                for(var type in entry) {
                     var attrs = entry[type];
                     
                     // Convert functions to string to be used as callback
-                    for(attribute in attrs)
+                    for(var attribute in attrs)
                         if(typeof attrs[attribute] === "function")
                             attrs[attribute] = "("+ attrs[attribute] + ")(this)";
 
@@ -100,8 +98,8 @@ function bootpopup(options) {
                             attrs.type = type;
                             // Continue for input
                         case "input":
-                            // Create a random id if none is provided
-                            attrs.id = (typeof attrs.id === "undefined" ? "bootpopup" + String(Math.random()).substr(2) : attrs.id);
+                            // Create a random id for the input if none is provided
+                            attrs.id = (typeof attrs.id === "undefined" ? "bootpopup-input" + String(Math.random()).substr(2) : attrs.id);
                             attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
                             attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
 
@@ -147,11 +145,18 @@ function bootpopup(options) {
             class: "btn " + btnClass,
             "data-dismiss": "modal",
             "data-callback": item,
-            "data-form": "#bootpopup-form" + bootpopupFormCounter,
+            "data-form": this.formid,
+
             click: function(e) {
-                var callback = opts[$(e.target).attr("data-callback")];
-                var form = $(e.target).attr("data-form");
-                callback($(form).serializeArray(), e);
+                var button = $(e.target);
+                var callback = opts[button.attr("data-callback")];
+                var form = button.attr("data-form");
+                var array = $("#" + form).serializeArray();
+                var keyval = {};
+                for(var i in array)
+                    keyval[array[i].name] = array[i].value;
+
+                callback(keyval, array, e);
             }
         }).appendTo(footer);
     }
@@ -175,7 +180,7 @@ bootpopup.alert = function(message, title, callback) {
     bootpopup({
         title: title,
         content: [{ p: {text: message}}],
-        dismiss: function(data) { callback(); }
+        dismiss: function() { callback(); }
     });
 }
 
@@ -194,8 +199,8 @@ bootpopup.confirm = function(message, title, callback) {
         showclose: false,
         content: [{ p: {text: message}}],
         buttons: ["no", "yes"],
-        yes: function(data) { answer = true; },
-        dismiss: function(data) { callback(answer); }
+        yes: function() { answer = true; },
+        dismiss: function() { callback(answer); }
     });
 }
 
@@ -222,6 +227,8 @@ bootpopup.prompt = function(label, type, message, title, callback) {
             { p: {text: message}},
             { input: {type: type, name: "value", label: label}}],
         buttons: ["cancel", "ok"],
-        ok: callback
+        ok: function(data) {
+            callback(data.value);
+        }
     });
 }
