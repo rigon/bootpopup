@@ -73,43 +73,54 @@ function bootpopup(options) {
     var body = $('<div class="modal-body"></div>').appendTo(content);
     var form = $("<form></form>", { id: "bootpopup-form" + bootpopupFormCounter, class: "form-horizontal" }).appendTo(body);
 
-    // Iterate over elements
-    for(element in opts.content) {
-        for(type in opts.content[element]) {
-            var attrs = opts.content[element][type];
+    // Iterate over entries
+    for(i in opts.content) {
+        var entry = opts.content[i];
+        switch(typeof entry) {
+            case "string":
+                form.append(entry);
+                break;
+            case "object":
+                for(type in entry) {
+                    var attrs = entry[type];
+                    
+                    // Convert functions to string to be used as callback
+                    for(attribute in attrs)
+                        if(typeof attrs[attribute] === "function")
+                            attrs[attribute] = "("+ attrs[attribute] + ")(this)";
 
-            // Convert functions to string
-            for(attribute in attrs)
-                if(typeof attrs[attribute] === "function")
-                    attrs[attribute] = "("+ attrs[attribute] + ")(this)";
+                    switch(type) {
+                        /* // List of input types
+                        case "button": case "checkbox": case "color": case "date": case "datetime-local": 
+                        case "email": case "file": case "hidden": case "image": case "month": case "number":
+                        case "password": case "radio": case "range": case "reset": case "search":
+                        case "submit": case "tel": case "text": case "time": case "url": case "week": */
+                        case "button": case "text": case "submit": case "color": case "url": case "password": 
+                        case "hidden": case "file": case "number": case "email": case "reset": case "date":
+                            attrs.type = type;
+                            // Continue for input
+                        case "input":
+                            // Create a random id if none is provided
+                            attrs.id = (typeof attrs.id === "undefined" ? "bootpopup" + String(Math.random()).substr(2) : attrs.id);
+                            attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
+                            attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
 
-            switch(type) {
-                /* // List of input types
-                case "button": case "checkbox": case "color": case "date": case "datetime-local": 
-                case "email": case "file": case "hidden": case "image": case "month": case "number":
-                case "password": case "radio": case "range": case "reset": case "search":
-                case "submit": case "tel": case "text": case "time": case "url": case "week": */
-                case "button": case "text": case "submit": case "color": case "url": case "password": 
-                case "hidden": case "file": case "number": case "email": case "reset": case "date":
-                    attrs.type = type;
-                    // Continue for input
-                case "input":
-                    attrs.id = (typeof attrs.id === "undefined" ? "bootpopup-form-input" + element : attrs.id);
-                    attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
-                    attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
-
-                    // Form Group
-                    var formGroup = $('<div class="form-group"></div>').appendTo(form);
-                    // Label
-                    $("<label></label>", { for: attrs.id, class: "col-sm-2 control-label", text: attrs.label}).appendTo(formGroup);
-                    delete attrs.label;
-                    // Input and div to control width
-                    var divColSm = $('<div class="col-sm-10"></div>').appendTo(formGroup);
-                    $("<input />", attrs).appendTo(divColSm);
-                    break;
-                default:
-                    form.append($("<" + type + ">", attrs));
-            }
+                            // Form Group
+                            var formGroup = $('<div class="form-group"></div>').appendTo(form);
+                            // Label
+                            $("<label></label>", { for: attrs.id, class: "col-sm-2 control-label", text: attrs.label}).appendTo(formGroup);
+                            delete attrs.label;
+                            // Input and div to control width
+                            var divColSm = $('<div class="col-sm-10"></div>').appendTo(formGroup);
+                            $("<input />", attrs).appendTo(divColSm);
+                            break;
+                        default:
+                            form.append($("<" + type + "></" + type + ">", attrs));
+                    }
+                }
+                break;
+            default:
+                throw "Invalid entry type";
         }
     }
 
