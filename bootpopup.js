@@ -73,10 +73,12 @@ function bootpopup(options) {
     var body = $('<div class="modal-body"></div>').appendTo(content);
     var form = $("<form></form>", { id: "bootpopup-form" + bootpopupFormCounter, class: "form-horizontal" }).appendTo(body);
 
+    // Iterate over elements
     for(element in opts.content) {
         for(type in opts.content[element]) {
             var attrs = opts.content[element][type];
-            
+
+            // Convert functions to string
             for(attribute in attrs)
                 if(typeof attrs[attribute] === "function")
                     attrs[attribute] = "("+ attrs[attribute] + ")(this)";
@@ -100,6 +102,7 @@ function bootpopup(options) {
                     var formGroup = $('<div class="form-group"></div>').appendTo(form);
                     // Label
                     $("<label></label>", { for: attrs.id, class: "col-sm-2 control-label", text: attrs.label}).appendTo(formGroup);
+                    delete attrs.label;
                     // Input and div to control width
                     var divColSm = $('<div class="col-sm-10"></div>').appendTo(formGroup);
                     $("<input />", attrs).appendTo(divColSm);
