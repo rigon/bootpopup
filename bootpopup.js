@@ -69,7 +69,7 @@ function bootpopup(options) {
     
     // Body
     var body = $('<div class="modal-body"></div>').appendTo(content);
-    var form = $("<form></form>", { id: this.formid, class: "form-horizontal" }).appendTo(body);
+    var form = $("<form></form>", { id: this.formid, class: "form-horizontal", onsubmit: "return false;" }).appendTo(body);
 
     // Iterate over entries
     for(var i in opts.content) {
