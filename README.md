@@ -2,10 +2,20 @@
 
 Popup dialog boxes for Bootstrap.
 
-## Demos
+See it in action in [BootPopup - Examples](http://www.bootpopup.tk/#examples)
 
-See the demos in [BootPopup - Examples](http://www.bootpopup.tk/#examples)
 
+## Content
+
+- [API](#api)
+  - [bootpopup.alert](#bootpopupalertmessage-title-callback)
+  - [bootpopup.confirm](#bootpopupconfirmmessage-title-callback)
+  - [bootpopup.prompt](#bootpopuppromptlabel-type-message-title-callback)
+  - [bootpopup](#bootpopupoptions)
+    - [About the buttons option](#about-the-buttons-option)
+    - [About the content option](#about-the-content-option)
+- [Examples](#examples)
+- [Migration from previous version to v1](#migration-from-previous-version-to-v1)
 
 ## API
 
