@@ -141,6 +141,11 @@ via a dialog box, BootPopup will grab all that data and deliver to you through t
    ```
    This will create a `onclick` event for the button. The reference for the object is passed as argument to the function.
 
+5. You can also insert HTML strings directly. Instead of writing an JS object, write the HTML:
+
+   ```javascript
+   '<p class="lead">Popup dialog boxes for Bootstrap.</p>'
+   ```
 
 
 ## Examples
@@ -156,13 +161,17 @@ Open `index.html` to see the library in action.
 - Confirm:
 
   ```javascript
-  bootpopup.confirm("Do you confirm this message?");
+  bootpopup.confirm("Do you confirm this message?", function(ans) {
+    alert(ans);
+  });
   ```
 
 - Prompt:
 
   ```javascript		
-  bootpopup.prompt("Name");
+  bootpopup.prompt("Name", function(value) {
+    alert(value);
+  });
   ```
 
 - Customized prompt:
@@ -171,6 +180,7 @@ Open `index.html` to see the library in action.
   bootpopup({
       title: "Add image",
       content: [
+          '<p class="lead">Add an image</p>',
           { p: {text: "Insert image info here:"}},
           { input: {type: "text", label: "Title", name: "title", placeholder: "Description for image"}},
           { input: {type: "text", label: "Link", name: "link", placeholder: "Hyperlink for image"}}],
@@ -179,3 +189,12 @@ Open `index.html` to see the library in action.
       complete: function() { alert("complete"); },
   });
   ```
+
+
+## Migration from previous version to v1
+
+- The value passed in the argument to the `prompt` callback is now the actual value
+- The parameters passed to the callback of `bootpopup` are now:
+    1. `data` - a list of key-value pairs of the form, where key is the name of the input
+    2. `array` - an array of name-value pairs obtained from the jQuery function `$(form).serializeArray()`
+    3. `event` - event of pressing the button
