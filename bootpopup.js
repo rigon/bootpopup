@@ -75,7 +75,7 @@ function bootpopup(options) {
     for(var i in opts.content) {
         var entry = opts.content[i];
         switch(typeof entry) {
-            case "string":
+            case "string":		// HTML string
                 form.append(entry);
                 break;
             case "object":
@@ -93,12 +93,16 @@ function bootpopup(options) {
                         case "email": case "file": case "hidden": case "image": case "month": case "number":
                         case "password": case "radio": case "range": case "reset": case "search":
                         case "submit": case "tel": case "text": case "time": case "url": case "week": */
+                        case "checkbox":
+                            var checkboxLabel = attrs.label;
+                            attrs.label = "";
+                            attrs.class = (typeof attrs.class === "undefined" ? "" : attrs.class);
                         case "button": case "text": case "submit": case "color": case "url": case "password": 
                         case "hidden": case "file": case "number": case "email": case "reset": case "date":
                             attrs.type = type;
                             // Continue for input
                         case "input":
-                            // Create a random id for the input if none is provided
+                            // Create a random id for the input if none provided
                             attrs.id = (typeof attrs.id === "undefined" ? "bootpopup-input" + String(Math.random()).substr(2) : attrs.id);
                             attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
                             attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
@@ -109,8 +113,14 @@ function bootpopup(options) {
                             $("<label></label>", { for: attrs.id, class: "col-sm-2 control-label", text: attrs.label}).appendTo(formGroup);
                             delete attrs.label;
                             // Input and div to control width
-                            var divColSm = $('<div class="col-sm-10"></div>').appendTo(formGroup);
-                            $("<input />", attrs).appendTo(divColSm);
+                            var input = $("<input />", attrs);
+                            if(type === "checkbox")
+                                input = $('<div class="checkbox"></div>')
+                                    .append($('<label></label>').append(input).append(checkboxLabel));
+                            
+                            var divColSm = $('<div class="col-sm-10"></div>');
+                            divColSm.append(input);
+                            formGroup.append(divColSm)
                             break;
                         default:
                             form.append($("<" + type + "></" + type + ">", attrs));

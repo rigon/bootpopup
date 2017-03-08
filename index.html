@@ -202,6 +202,7 @@
         { p: {text: &quot;Insert image info here:&quot;}},
         { input: {type: &quot;text&quot;, label: &quot;Title&quot;, name: &quot;title&quot;, id: &quot;title&quot;, placeholder: &quot;Description for image&quot;, value: &quot;Woman picking flowers&quot;}},
         { url: {label: &quot;Link&quot;, name: &quot;link&quot;, id: &quot;link&quot;, placeholder: &quot;Hyperlink for image&quot;, value: &quot;http://hmp.me/3lv&quot;}},
+        { checkbox: {label: &quot;Add border to the image&quot;, name: &quot;border&quot;, id: &quot;border&quot;}},
         { button: {name: &quot;button&quot;, value: &quot;Open image&quot;, class: &quot;btn btn-info&quot;, onclick: function() {
                 bootpopup({
                     title: $(&apos;#title&apos;).val(),
@@ -261,6 +262,7 @@
 						{ p: {text: "Insert image info here:"}},
 						{ input: {type: "text", label: "Title", name: "title", id: "title", placeholder: "Description for image", value: "Woman picking flowers"}},
 						{ url: {label: "Link", name: "link", id: "link", placeholder: "Hyperlink for image", value: "http://hmp.me/3lv"}},
+						{ checkbox: {label: "Add border to the image", name: "border", id: "border"}},
 						{ button: {name: "button", value: "Open image", class: "btn btn-info", onclick: function() {
 								bootpopup({
 									title: $('#title').val(),
