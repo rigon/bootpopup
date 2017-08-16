@@ -1,0 +1,26 @@
+{
+  "name": "bootpopup",
+  "main": "bootpopup.js",
+  "homepage": "http://www.bootpopup.tk",
+  "authors": [
+    "rigon <ricardompgoncalves@gmail.com>"
+  ],
+  "description": "Popup dialog boxes for Bootstrap",
+  "keywords": [
+    "bootstrap",
+    "dialog"
+  ],
+  "license": "GPL",
+  "version": "1.1.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7"
+  }
+}
