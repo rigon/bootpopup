@@ -16,6 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *************************************************************************/
 
+/**
+ * AMD support: require.js
+ */
+if(typeof define === "function") {
+    define(["jquery", "bootstrap"], function() {
+      return bootpopup;
+    });
+}
+
+
 function bootpopup(options) {
     // Create a global random ID for the form
     this.formid = "bootpopup-form" + String(Math.random()).substr(2);
