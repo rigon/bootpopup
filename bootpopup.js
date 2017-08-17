@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *************************************************************************/
 
-/**
- * AMD support: require.js
- */
-if(typeof define === "function") {
-    define(["jquery", "bootstrap"], function() {
-      return bootpopup;
-    });
-}
+
+/* // List of input types
+case "button": case "checkbox": case "color": case "date": case "datetime-local": 
+case "email": case "file": case "hidden": case "image": case "month": case "number":
+case "password": case "radio": case "range": case "reset": case "search":
+case "submit": case "tel": case "text": case "time": case "url": case "week": */
+var INPUT_SHORTCUT_TYPES = [ "button", "text", "submit", "color", "url", "password",
+    "hidden", "file", "number", "email", "reset", "date", "checkbox" ];
 
 
 function bootpopup(options) {
@@ -97,44 +97,47 @@ function bootpopup(options) {
                         if(typeof attrs[attribute] === "function")
                             attrs[attribute] = "("+ attrs[attribute] + ")(this)";
 
-                    switch(type) {
-                        /* // List of input types
-                        case "button": case "checkbox": case "color": case "date": case "datetime-local": 
-                        case "email": case "file": case "hidden": case "image": case "month": case "number":
-                        case "password": case "radio": case "range": case "reset": case "search":
-                        case "submit": case "tel": case "text": case "time": case "url": case "week": */
-                        case "checkbox":
-                            var checkboxLabel = attrs.label;
-                            attrs.label = "";
-                            attrs.class = (typeof attrs.class === "undefined" ? "" : attrs.class);
-                        case "button": case "text": case "submit": case "color": case "url": case "password": 
-                        case "hidden": case "file": case "number": case "email": case "reset": case "date":
-                            attrs.type = type;
-                            // Continue for input
-                        case "input":
-                            // Create a random id for the input if none provided
-                            attrs.id = (typeof attrs.id === "undefined" ? "bootpopup-input" + String(Math.random()).substr(2) : attrs.id);
-                            attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
-                            attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
-
-                            // Form Group
-                            var formGroup = $('<div class="form-group"></div>').appendTo(form);
-                            // Label
-                            $("<label></label>", { for: attrs.id, class: "col-sm-2 control-label", text: attrs.label}).appendTo(formGroup);
-                            delete attrs.label;
-                            // Input and div to control width
-                            var input = $("<input />", attrs);
-                            if(type === "checkbox")
-                                input = $('<div class="checkbox"></div>')
-                                    .append($('<label></label>').append(input).append(checkboxLabel));
-                            
-                            var divColSm = $('<div class="col-sm-10"></div>');
-                            divColSm.append(input);
-                            formGroup.append(divColSm)
-                            break;
-                        default:
-                            form.append($("<" + type + "></" + type + ">", attrs));
+                    // Check if type is a shortcut for input
+                    if(INPUT_SHORTCUT_TYPES.indexOf(type) >= 0) {
+                        attrs.type = type;  // Add attribute for type
+                        type = "input";     // Continue to input
                     }
+                    
+                    if(type == "input") {
+                        // To avoid adding "form-control" class
+                        if(attrs.type === "checkbox" && typeof attrs.class === "undefined")
+                            attrs.class = "";
+
+                        // Create a random id for the input if none provided
+                        attrs.id = (typeof attrs.id === "undefined" ? "bootpopup-input" + String(Math.random()).substr(2) : attrs.id);
+                        attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
+                        attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
+
+                        // Create input
+                        var input = $("<input />", attrs);
+
+                        // Special case for checkbox
+                        if(attrs.type === "checkbox") {
+                            input = $('<div class="checkbox"></div>')
+                                .append($('<label></label>')
+                                .append(input)
+                                .append(attrs.label));
+                            // Clear label to not add as header, it was added before
+                            attrs.label = "";
+                        }
+
+                        // Form Group
+                        var formGroup = $('<div class="form-group"></div>').appendTo(form);
+                        // Label
+                        $("<label></label>", { for: attrs.id, class: "col-sm-4 control-label", text: attrs.label}).appendTo(formGroup);
+
+                        // Input and div to control width
+                        var divColSm = $('<div class="col-sm-8"></div>');
+                        divColSm.append(input);
+                        formGroup.append(divColSm)
+                    }
+                    else    // Anything else besides input
+                        form.append($("<" + type + "></" + type + ">", attrs));     // Add directly
                 }
                 break;
             default:
@@ -225,30 +228,66 @@ bootpopup.confirm = function(message, title, callback) {
 }
 
 bootpopup.prompt = function(label, type, message, title, callback) {
+    // Callback can be in any position, except label
+    var callback_function = function() {};
     if(typeof type === "function")
-        callback = type;
+        callback_function = type;
     if(typeof message === "function")
-        callback = message;
+        callback_function = message;
     if(typeof title === "function")
-        callback = title;
+        callback_function = title;
+    if(typeof callback === "function")
+        callback_function = callback;
 
-    if(typeof type !== "string")
-        type = "text";
+    // If a list of values is provided, then the parameters are shifted
+    // because type should be ignored
+    if(typeof label === "object") {
+        title = message;
+        message = type;
+        type = null;
+    }
+
+    // Sanitize message and title
     if(typeof message !== "string")
-        message = "Provide a " + type + " for:";
+        message = "Please, provide values for:";
     if(typeof title !== "string")
         title = document.title;
-    if(typeof callback !== "function")
-        callback = function() {};
+
+    // Add message to the window
+    var content = [{ p: {text: message}}];
+
+    // If label is a list of values to be asked to input
+    if(typeof label === "object") {
+        label.forEach(function(entry) {
+            if(typeof entry.name !== "string")  // Name in lower case and dashes instead spaces
+                entry.name = entry.label.toLowerCase().replace(/\s+/g,"-");
+            if(typeof entry.type !== "string")
+                entry.type = "text";
+            content.push({ input: entry });
+        });
+    }
+    else {
+        if(typeof type !== "string") type = "text";
+        content.push({ input: {type: type, name: "value", label: label}});
+        callback_tmp = callback_function;   // Overload callback function to return "data.value"
+        callback_function = function(data) { callback_tmp(data.value); };
+    }
     
     bootpopup({
         title: title,
-        content: [
-            { p: {text: message}},
-            { input: {type: type, name: "value", label: label}}],
+        content: content,
         buttons: ["cancel", "ok"],
         ok: function(data) {
-            callback(data.value);
+            callback_function(data);
         }
+    });
+}
+
+/**
+ * AMD support: require.js
+ */
+if(typeof define === "function") {
+    define(["jquery", "bootstrap"], function() {
+      return bootpopup;
     });
 }

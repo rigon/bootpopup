@@ -94,8 +94,8 @@
 						<li><a href="https://github.com/rigon/bootpopup/blob/master/README.md#api">API <small class="glyphicon glyphicon-new-window"></small></a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="https://github.com/rigon/bootpopup"><img src="https://assets-cdn.github.com/favicon.ico" /> View on GitHub</a></li>
 						<li><a href="http://www.rigon.tk">by <u>rigon</u></a></li>
+						<li><a href="https://github.com/rigon/bootpopup"><img src="https://assets-cdn.github.com/favicon.ico" /> Fork on GitHub</a></li>
 						<li><a href="#" id="paypal-link" title="Please donate - Help us to mantain this project!"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"></a></li>
 					</ul>
 				</div>
@@ -112,10 +112,10 @@
 				</a>
 			</p>
             <p>
-                <img src="https://bower.io/img/bower-logo.svg" width="16">
-                <small><a href="https://bower.io/search/?q=bootpopup">Available via bower</a></small><br>
                 <img src="https://www.npmjs.com/static/images/touch-icons/favicon-16x16.png">
                 <small><a href="https://www.npmjs.com/package/bootpopup">Available via npm</a></small><br>
+                <img src="https://bower.io/img/bower-logo.svg" width="16">
+                <small><a href="https://bower.io/search/?q=bootpopup">Available via bower</a></small><br>
                 <img src="http://requirejs.org/favicon.png">
                 <small>AMD support: require.js</small>
             </p>
@@ -188,17 +188,27 @@
 			<pre><code class="js">bootpopup.prompt("Name");</code></pre>
 			<p><button id="example-prompt-1" class="btn btn-primary">Run example</button></p><hr>
 			
-			<p>A confirm with a custom type of data:</p>
+			<p>A prompt with a custom type of data. This corresponds to <a href="https://www.w3schools.com/tags/att_input_type.asp">HTML input types</a>:</p>
 			<pre><code class="js">bootpopup.prompt("Age", "number");</code></pre>
 			<p><button id="example-prompt-2" class="btn btn-primary">Run example</button></p><hr>
 			
-			<p>A confirm with a custom message:</p>
+			<p>A prompt with a custom message:</p>
 			<pre><code class="js">bootpopup.prompt("Text", null, "Insert a random text:");</code></pre>
 			<p><button id="example-prompt-3" class="btn btn-primary">Run example</button></p><hr>
 			
 			<p>Or if you want a callback without a custom title and message:</p>
 			<pre><code class="js">bootpopup.prompt("Text", function(data) { alert(data); });</code></pre>
 			<p><button id="example-prompt-4" class="btn btn-primary">Run example</button></p><hr>
+			
+			<p>You can also request multiple values at same time, providing a list of values to input:</p>
+			<pre><code class="js">bootpopup.prompt([
+        { label: &quot;A text&quot;},
+        { label: &quot;A number&quot;, type: &quot;number&quot;},
+        { label: &quot;A boolean&quot;, type: &quot;checkbox&quot;, name: &quot;boolean&quot;}
+    ],
+    function(data) { alert(JSON.stringify(data)); }
+);</code></pre>
+			<p><button id="example-prompt-5" class="btn btn-primary">Run example</button></p><hr>
 
 
 			<h2 id="customized">Customized dialog</h2>
@@ -262,6 +272,11 @@
 			$("#example-prompt-2").click(function() { bootpopup.prompt("Age", "number"); });
 			$("#example-prompt-3").click(function() { bootpopup.prompt("Text", null, "Insert a random text:"); });
 			$("#example-prompt-4").click(function() { bootpopup.prompt("Text", function(data) { alert(data); }); });
+			$("#example-prompt-5").click(function() { bootpopup.prompt([
+					{ label: "A text"},
+					{ label: "A number", type: "number"},
+					{ label: "A boolean", type: "checkbox", name: "boolean"}
+				], function(data) { alert(JSON.stringify(data)); }); });
 
 			$("#example-customized-1").click(function() {
 				bootpopup({

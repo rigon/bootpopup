@@ -64,6 +64,27 @@ Shows a prompt dialog box, asking to input a value.
   - `(function)(answer)` callback with the introduced data. This is only called when OK is pressed
 
 
+### `bootpopup.prompt(list_types[, message[, title[, callback]]])`
+
+Shows a prompt dialog box, asking to input a value.
+
+- **list_types**:
+  - `(string)` array of objects with the description of values being asked:
+    - **label** label of the value
+    - **type** type of the value (default is `text`)
+    - **name** key used in the data returned to the callback (default is label in lowercase and dashed)
+    - <a href="https://www.w3schools.com/html/html_form_attributes.asp">HTML input attributes</a> are also accepted. Example:
+    `{ label: "Name", type: "text", name: "name", value: "My name"}`
+- **message**:
+  - `(string)` message shown before the asked value. Default value is *Provide a `type` for:*
+  - `(function)(answer)` callback with the introduced data. This is only called when OK is pressed
+- **title**:
+  - `(string)` title of the prompt dialog. Default value is page title
+  - `(function)(answer)` callback with the introduced data. This is only called when OK is pressed
+- **callback**:
+  - `(function)(answer)` callback with the introduced data. This is only called when OK is pressed
+
+
 ### `bootpopup(options)`
 
 Shows a customized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `bootpopup.prompt` are mapped into this function.
