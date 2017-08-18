@@ -216,6 +216,9 @@
 				pick up the entered data from the callback very easily:</p>
 			<pre><code class="js">bootpopup({
     title: &quot;Add image&quot;,
+    size: &quot;large&quot;,
+    size_labels: &quot;col-sm-2&quot;,
+    size_inputs: &quot;col-sm-10&quot;,
     content: [
         { p: {text: &quot;Insert image info here:&quot;}},
         { input: {type: &quot;text&quot;, label: &quot;Title&quot;, name: &quot;title&quot;, id: &quot;title&quot;, placeholder: &quot;Description for image&quot;, value: &quot;Woman picking flowers&quot;}},
@@ -282,6 +285,9 @@
 			$("#example-customized-1").click(function() {
 				bootpopup({
 					title: "Add image",
+					size: "large",
+					size_labels: "col-sm-2",
+					size_inputs: "col-sm-10",
 					content: [
 						{ p: {text: "Insert image info here:"}},
 						{ input: {type: "text", label: "Title", name: "title", id: "title", placeholder: "Description for image", value: "Woman picking flowers"}},

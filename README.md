@@ -10,7 +10,8 @@ See it in action in [BootPopup - Examples](http://www.bootpopup.tk/#examples)
 - [API](#api)
   - [bootpopup.alert](#bootpopupalertmessage-title-callback)
   - [bootpopup.confirm](#bootpopupconfirmmessage-title-callback)
-  - [bootpopup.prompt](#bootpopuppromptlabel-type-message-title-callback)
+  - [bootpopup.prompt](#bootpopuppromptlabel-type-message-title-callback) (single value)
+  - [bootpopup.prompt](#bootpopuppromptlist_types-message-title-callback) (multiple values)
   - [bootpopup](#bootpopupoptions)
     - [About the buttons option](#about-the-buttons-option)
     - [About the content option](#about-the-content-option)
@@ -47,7 +48,7 @@ Shows a confirm dialog box.
 
 ### `bootpopup.prompt(label[, type[, message[, title[, callback]]]])`
 
-Shows a prompt dialog box, asking to input a value.
+Shows a prompt dialog box, asking to input a single value.
 
 - **label**:
   - `(string)` label of the value being asked
@@ -66,7 +67,7 @@ Shows a prompt dialog box, asking to input a value.
 
 ### `bootpopup.prompt(list_types[, message[, title[, callback]]])`
 
-Shows a prompt dialog box, asking to input a value.
+Shows a prompt dialog box, asking to input multiple values.
 
 - **list_types**:
   - `(string)` array of objects with the description of values being asked:
@@ -91,20 +92,23 @@ Shows a customized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `bootp
 
 **Options:** `(object)`
 
-| Name      | Type     | Default             | Example          | Description
-|-----------|----------|---------------------|------------------|------------
-| title     | string   | `document.title`    | `"A title"`      | Title of the dialog box
-| showclose | boolean  | `true`              | `false`          | Show or not the close button in the title
-| content   | array    | `[]`                | `[ {p}, {p} ]`   | Content of the dialog box. Learn more [about the content option](#about-the-content-option)
-| buttons   | array    | `["close"]`         | `[ "yes", "no"]` | List of buttons to show in the bottom of the dialog box. The possible options are: `close`, `ok`, `cancel`, `yes`, `no`. Learn more [about the buttons option](#about-the-buttons-option)
-| before    | function | `function(diag) {}` |                  | Called before the window is shown, but after being created. `diag` provides the HTML object for the dialog
-| dismiss   | function | `function(data) {}` |                  | Called when the window is dismissed
-| close     | function | `function(data) {}` |                  | Called when Close button is selected
-| ok        | function | `function(data) {}` |                  | Called when OK button is selected
-| cancel    | function | `function(data) {}` |                  | Called when Cancel button is selected
-| yes       | function | `function(data) {}` |                  | Called when Yes button is selected
-| no        | function | `function(data) {}` |                  | Called when No button is selected
-| complete  | function | `function(data) {}` |                  | This function is always called when the dialog box has completed
+| Name        | Type     | Default          | Example             | Description
+|-------------|----------|------------------|---------------------|------------
+| title       | string   | `document.title` | `"A title"`         | Title of the dialog box
+| showclose   | boolean  | `true`           | `false`             | Show or not the close button in the title
+| content     | array    | `[]`             | `[ {p}, {p} ]`      | Content of the dialog box. Learn more [about the content option](#about-the-content-option)
+| size        | string   | `normal`         | `large`             | Size of the modal window. Values accepted: `small`, `normal`, `large` (Bootstrap Modal optional sizes)[https://getbootstrap.com/docs/3.3/javascript/#modals-sizes]
+| size_labels | string   | `col-sm-4`       | `col-lg-2`          | Any class name or list of classes to apply to labels in the form. Preferably classes from (Bootstrap Grid system)[https://getbootstrap.com/docs/3.3/css/#grid]
+| size_inputs | string   | `col-sm-8`       | `col-lg-10`         | Any class name or list of classes to apply to inputs (div that wraps the input) in the form. Preferably classes from (Bootstrap Grid system)[https://getbootstrap.com/docs/3.3/css/#grid]
+| buttons     | array    | `["close"]`      | `[ "yes", "no"]`    | List of buttons to show in the bottom of the dialog box. The possible options are: `close`, `ok`, `cancel`, `yes`, `no`. Learn more [about the buttons option](#about-the-buttons-option)
+| before      | function | `function() {}`  | `function(diag) {}` | Called before the window is shown, but after being created. `diag` provides the HTML object for the dialog
+| dismiss     | function | `function() {}`  | `function(data) {}` | Called when the window is dismissed
+| close       | function | `function() {}`  | `function(data) {}` | Called when Close button is selected
+| ok          | function | `function() {}`  | `function(data) {}` | Called when OK button is selected
+| cancel      | function | `function() {}`  | `function(data) {}` | Called when Cancel button is selected
+| yes         | function | `function() {}`  | `function(data) {}` | Called when Yes button is selected
+| no          | function | `function() {}`  | `function(data) {}` | Called when No button is selected
+| complete    | function | `function() {}`  | `function(data) {}` | This function is always called when the dialog box has completed
 
 #### About the **buttons** option:
 

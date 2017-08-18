@@ -33,6 +33,9 @@ function bootpopup(options) {
     var opts = {
         title: document.title,
         showclose: true,
+        size: "normal",
+        size_labels: "col-sm-4",
+        size_inputs: "col-sm-8",
         content: [],
         buttons: ["close"],
         before: function() {},
@@ -63,9 +66,14 @@ function bootpopup(options) {
         });
     }
 
+    // Option for modal dialog size
+    var classModalDialog = "modal-dialog";
+    if(opts.size == "large") classModalDialog += " modal-lg";
+    if(opts.size == "small") classModalDialog += " modal-sm";
 
+    // Create HTML elements for modal dialog
     var modalWindow = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bootpopup-title"></div>');
-    var dialog = $('<div class="modal-dialog" role="document"></div>');
+    var dialog = $('<div></div>', { class: classModalDialog, role: "document" });
     var content = $('<div class="modal-content"></div>');
     dialog.append(content);
     modalWindow.append(dialog);
@@ -130,12 +138,12 @@ function bootpopup(options) {
                         // Form Group
                         var formGroup = $('<div class="form-group"></div>').appendTo(form);
                         // Label
-                        $("<label></label>", { for: attrs.id, class: "col-sm-4 control-label", text: attrs.label}).appendTo(formGroup);
+                        $("<label></label>", { for: attrs.id, class: "control-label " + opts.size_labels, text: attrs.label }).appendTo(formGroup);
 
                         // Input and div to control width
-                        var divColSm = $('<div class="col-sm-8"></div>');
-                        divColSm.append(input);
-                        formGroup.append(divColSm)
+                        var divInput = $('<div></div>', { class: opts.size_inputs });
+                        divInput.append(input);
+                        formGroup.append(divInput)
                     }
                     else    // Anything else besides input
                         form.append($("<" + type + "></" + type + ">", attrs));     // Add directly
