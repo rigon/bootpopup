@@ -200,9 +200,12 @@ function bootpopup(options) {
         modalWindow.remove();   // Delete window after complete
     });
 
+    // Add window to body
+    $(document.body).append(modalWindow);
+
     // Call before event
     opts.before(modalWindow);
-
+    
     // Fire the modal window
     modalWindow.modal();
 }
