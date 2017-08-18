@@ -195,7 +195,10 @@ function bootpopup(options) {
 
     // Setup events for dismiss and complete
     modalWindow.on('hide.bs.modal', opts.dismiss);
-    modalWindow.on('hidden.bs.modal', opts.complete);
+    modalWindow.on('hidden.bs.modal', function(e) {
+        opts.complete(e);
+        modalWindow.remove();   // Delete window after complete
+    });
 
     // Call before event
     opts.before(modalWindow);
