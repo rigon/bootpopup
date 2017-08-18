@@ -243,6 +243,7 @@
 		&apos;&lt;p class=&quot;lead&quot;&gt;Check out the &lt;a href=&quot;#examples&quot; data-scrollto=&quot;#examples&quot;&gt;examples&lt;/a&gt; to see how easy it is!&lt;/p&gt;&apos;,
 		&apos;Give us a rate 1-10:&apos;,
 		{ input: {type: &quot;number&quot;, label: &quot;Rate&quot;, name: &quot;rate&quot;, value: &quot;11&quot;}}],
+	before: function(window) { alert(&quot;Before&quot;); },
 	cancel: function(data, array, event) { alert(&quot;Cancel&quot;); },
 	ok: function(data, array, event) { alert(&quot;OK\n&quot; + JSON.stringify(data)); },
 	complete: function() { alert(&quot;Complete&quot;); },
@@ -292,8 +293,9 @@
 									content: [ { img: {src: $('#link').val()}} ]});
 							}
 						}}],
+					before: function(window) { alert("Before"); },
 					cancel: function(data, array, event) { alert("Cancel"); },
-					ok: function(data,array, event) { alert("OK\n" + JSON.stringify(data)); },
+					ok: function(data, array, event) { alert("OK\n" + JSON.stringify(data)); },
 					complete: function() { alert("Complete"); },
 				});
 			});

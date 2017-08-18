@@ -35,13 +35,14 @@ function bootpopup(options) {
         showclose: true,
         content: [],
         buttons: ["close"],
-        dismiss: function(data) {},
-        close: function(data) {},
-        ok: function(data) {},
-        cancel: function(data) {},
-        yes: function(data) {},
-        no: function(data) {},
-        complete: function(data) {},
+        before: function() {},
+        dismiss: function() {},
+        close: function() {},
+        ok: function() {},
+        cancel: function() {},
+        yes: function() {},
+        no: function() {},
+        complete: function() {},
     }
 
     
@@ -184,10 +185,15 @@ function bootpopup(options) {
         }).appendTo(footer);
     }
 
+    // Setup events for dismiss and complete
+    modalWindow.on('hide.bs.modal', opts.dismiss);
+    modalWindow.on('hidden.bs.modal', opts.complete);
+
+    // Call before event
+    opts.before(modalWindow);
+
     // Fire the modal window
     modalWindow.modal();
-    modalWindow.on('hide.bs.modal', function (e) { opts.dismiss(e); });
-    modalWindow.on('hidden.bs.modal', function (e) { opts.complete(e); });
 }
 
 

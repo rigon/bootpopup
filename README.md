@@ -97,12 +97,13 @@ Shows a customized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `bootp
 | showclose | boolean  | `true`              | `false`          | Show or not the close button in the title
 | content   | array    | `[]`                | `[ {p}, {p} ]`   | Content of the dialog box. Learn more [about the content option](#about-the-content-option)
 | buttons   | array    | `["close"]`         | `[ "yes", "no"]` | List of buttons to show in the bottom of the dialog box. The possible options are: `close`, `ok`, `cancel`, `yes`, `no`. Learn more [about the buttons option](#about-the-buttons-option)
-| dismiss   | function | `function(data) {}` |                  | Callback when the window is dismissed
-| close     | function | `function(data) {}` |                  | Callback when OK button is selected
-| ok        | function | `function(data) {}` |                  | Callback when OK button is selected
-| cancel    | function | `function(data) {}` |                  | Callback when Cancel button is selected
-| yes       | function | `function(data) {}` |                  | Callback when Yes button is selected
-| no        | function | `function(data) {}` |                  | Callback when No button is selected
+| before    | function | `function(diag) {}` |                  | Called before the window is shown, but after being created. `diag` provides the HTML object for the dialog
+| dismiss   | function | `function(data) {}` |                  | Called when the window is dismissed
+| close     | function | `function(data) {}` |                  | Called when Close button is selected
+| ok        | function | `function(data) {}` |                  | Called when OK button is selected
+| cancel    | function | `function(data) {}` |                  | Called when Cancel button is selected
+| yes       | function | `function(data) {}` |                  | Called when Yes button is selected
+| no        | function | `function(data) {}` |                  | Called when No button is selected
 | complete  | function | `function(data) {}` |                  | This function is always called when the dialog box has completed
 
 #### About the **buttons** option:
