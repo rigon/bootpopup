@@ -97,9 +97,9 @@ Shows a customized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `bootp
 | title       | string   | `document.title` | `"A title"`         | Title of the dialog box
 | showclose   | boolean  | `true`           | `false`             | Show or not the close button in the title
 | content     | array    | `[]`             | `[ {p}, {p} ]`      | Content of the dialog box. Learn more [about the content option](#about-the-content-option)
-| size        | string   | `normal`         | `large`             | Size of the modal window. Values accepted: `small`, `normal`, `large` (Bootstrap Modal optional sizes)[https://getbootstrap.com/docs/3.3/javascript/#modals-sizes]
-| size_labels | string   | `col-sm-4`       | `col-lg-2`          | Any class name or list of classes to apply to labels in the form. Preferably classes from (Bootstrap Grid system)[https://getbootstrap.com/docs/3.3/css/#grid]
-| size_inputs | string   | `col-sm-8`       | `col-lg-10`         | Any class name or list of classes to apply to inputs (div that wraps the input) in the form. Preferably classes from (Bootstrap Grid system)[https://getbootstrap.com/docs/3.3/css/#grid]
+| size        | string   | `normal`         | `large`             | Size of the modal window. Values accepted: `small`, `normal`, `large` [Bootstrap Modal optional sizes](https://getbootstrap.com/docs/3.3/javascript/#modals-sizes)
+| size_labels | string   | `col-sm-4`       | `col-lg-2`          | Any class name or list of classes to apply to labels in the form. Preferably classes from [Bootstrap Grid system](https://getbootstrap.com/docs/3.3/css/#grid)
+| size_inputs | string   | `col-sm-8`       | `col-lg-10`         | Any class name or list of classes to apply to inputs (div that wraps the input) in the form. Preferably classes from [Bootstrap Grid system](https://getbootstrap.com/docs/3.3/css/#grid)
 | buttons     | array    | `["close"]`      | `[ "yes", "no"]`    | List of buttons to show in the bottom of the dialog box. The possible options are: `close`, `ok`, `cancel`, `yes`, `no`. Learn more [about the buttons option](#about-the-buttons-option)
 | before      | function | `function() {}`  | `function(diag) {}` | Called before the window is shown, but after being created. `diag` provides the HTML object for the dialog
 | dismiss     | function | `function() {}`  | `function(data) {}` | Called when the window is dismissed
