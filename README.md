@@ -15,6 +15,7 @@ See it in action in [BootPopup - Examples](http://www.bootpopup.tk/#examples)
   - [bootpopup](#bootpopupoptions)
     - [About the buttons option](#about-the-buttons-option)
     - [About the content option](#about-the-content-option)
+  - [bootpopup object](#bootpopup-object)
 - [Examples](#examples)
 - [Migration from previous version to v1](#migration-from-previous-version-to-v1)
 
@@ -23,6 +24,7 @@ See it in action in [BootPopup - Examples](http://www.bootpopup.tk/#examples)
 ### `bootpopup.alert(message[, title[, callback]])`
   
 Shows an alert dialog box.
+**Return:** instance of BootPopup window
 
 - **message**:
   - `(string)` message of the alert
@@ -36,6 +38,7 @@ Shows an alert dialog box.
 ### `bootpopup.confirm(message[, title[, callback]])`
 
 Shows a confirm dialog box.
+**Return:** instance of BootPopup window
 
 - **message**:
   - `(string)` message to confirm
@@ -49,6 +52,7 @@ Shows a confirm dialog box.
 ### `bootpopup.prompt(label[, type[, message[, title[, callback]]]])`
 
 Shows a prompt dialog box, asking to input a single value.
+**Return:** instance of BootPopup window
 
 - **label**:
   - `(string)` label of the value being asked
@@ -68,6 +72,7 @@ Shows a prompt dialog box, asking to input a single value.
 ### `bootpopup.prompt(list_types[, message[, title[, callback]]])`
 
 Shows a prompt dialog box, asking to input multiple values.
+**Return:** instance of BootPopup window
 
 - **list_types**:
   - `(string)` array of objects with the description of values being asked:
@@ -89,6 +94,7 @@ Shows a prompt dialog box, asking to input multiple values.
 ### `bootpopup(options)`
 
 Shows a customized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `bootpopup.prompt` are mapped into this function.
+**Return:** instance of BootPopup window
 
 **Options:** `(object)`
 
@@ -182,6 +188,27 @@ via a dialog box, BootPopup will grab all that data and deliver to you through t
    ```javascript
    '<p class="lead">Popup dialog boxes for Bootstrap.</p>'
    ```
+## `bootpopup` object
+
+The `bootpopup` object is returned every time you create a new instance of BootPopup.
+
+### DOM elements
+
+All the following BootPopup properties are jQuery objects:
+
+- `modal` - entire window, including the fade background. You can use this property in the same way as described in [Bootstrap Modals Usage](https://getbootstrap.com/docs/3.3/javascript/#modals-usage)
+- `dialog` - entire window, without the background
+- `content` - content of the dialog
+- `header` - header of the dialog
+- `body` - body of the dialog
+- `form` - main form in the dialog, inside the `body`
+- `formid` - HTML ID of the form, this is a randomly generated
+- `footer` - footer of the dialog
+- `btnClose` - close button (if present)
+- `btnOk` - OK button (if present)
+- `btnCancel` - cancel button (if present)
+- `btnYes` - yes button (if present)
+- `btnNo` - no button (if present)
 
 
 ## Examples
