@@ -27,6 +27,7 @@ var INPUT_SHORTCUT_TYPES = [ "button", "text", "submit", "color", "url", "passwo
 
 
 function bootpopup(options) {
+    var self = this;
     // Create a global random ID for the form
     this.formid = "bootpopup-form" + String(Math.random()).substr(2);
 
@@ -72,30 +73,31 @@ function bootpopup(options) {
     if(opts.size == "small") classModalDialog += " modal-sm";
 
     // Create HTML elements for modal dialog
-    var modalWindow = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bootpopup-title"></div>');
-    var dialog = $('<div></div>', { class: classModalDialog, role: "document" });
-    var content = $('<div class="modal-content"></div>');
-    dialog.append(content);
-    modalWindow.append(dialog);
+    this.modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bootpopup-title"></div>');
+    this.dialog = $('<div></div>', { class: classModalDialog, role: "document" });
+    this.content = $('<div class="modal-content"></div>');
+    this.dialog.append(this.content);
+    this.modal.append(this.dialog);
     
     // Header
-    var header = $('<div class="modal-header"></div>');
+    this.header = $('<div class="modal-header"></div>');
     if(opts.showclose)
-        header.append('<button type="button" class="bootpopup-button close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
-    header.append('<h4 class="modal-title" id="bootpopup-title">' + opts.title + '</h4>');
-
-    content.append(header);
+        this.header.append('<button type="button" class="bootpopup-button close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
+    this.header.append('<h4 class="modal-title" id="bootpopup-title">' + opts.title + '</h4>');
+    this.content.append(this.header);
     
     // Body
-    var body = $('<div class="modal-body"></div>').appendTo(content);
-    var form = $("<form></form>", { id: this.formid, class: "form-horizontal", onsubmit: "return false;" }).appendTo(body);
+    this.body = $('<div class="modal-body"></div>');
+    this.form = $("<form></form>", { id: this.formid, class: "form-horizontal", onsubmit: "return false;" });
+    this.body.append(this.form);
+    this.content.append(this.body);
 
     // Iterate over entries
     for(var i in opts.content) {
         var entry = opts.content[i];
         switch(typeof entry) {
             case "string":		// HTML string
-                form.append(entry);
+                this.form.append(entry);
                 break;
             case "object":
                 for(var type in entry) {
@@ -146,7 +148,7 @@ function bootpopup(options) {
                         formGroup.append(divInput)
                     }
                     else    // Anything else besides input
-                        form.append($("<" + type + "></" + type + ">", attrs));     // Add directly
+                        this.form.append($("<" + type + "></" + type + ">", attrs));     // Add directly
                 }
                 break;
             default:
@@ -155,8 +157,8 @@ function bootpopup(options) {
     }
 
     // Footer
-    var footer = $('<div class="modal-footer"></div>');
-    content.append(footer);
+    this.footer = $('<div class="modal-footer"></div>');
+    this.content.append(this.footer);
 
     for(key in opts.buttons) {
         var item = opts.buttons[key];
@@ -171,7 +173,7 @@ function bootpopup(options) {
             case "no": btnClass = "btn-default"; btnText="No"; break;
         }
         
-        $("<button></button>", {
+        var button = $("<button></button>", {
             type: "button",
             text: btnText,
             class: "btn " + btnClass,
@@ -181,8 +183,8 @@ function bootpopup(options) {
 
             click: function(e) {
                 var button = $(e.target);
-                var callback = opts[button.attr("data-callback")];
-                var form = button.attr("data-form");
+                var callback = opts[button.data("callback")];
+                var form = button.data("form");
                 var array = $("#" + form).serializeArray();
                 var keyval = {};
                 for(var i in array)
@@ -190,24 +192,36 @@ function bootpopup(options) {
 
                 callback(keyval, array, e);
             }
-        }).appendTo(footer);
+        });
+        this.footer.append(button);
+        
+        // Reference for buttons
+        switch(item) {
+            case "close": this.btnClose = button; break;
+            case "ok": this.btnOk = button; break;
+            case "cancel": this.btnCancel = button; break;
+            case "yes": this.btnYes = button; break;
+            case "no": this.btnNo = button; break;
+        }
     }
 
     // Setup events for dismiss and complete
-    modalWindow.on('hide.bs.modal', opts.dismiss);
-    modalWindow.on('hidden.bs.modal', function(e) {
+    this.modal.on('hide.bs.modal', opts.dismiss);
+    this.modal.on('hidden.bs.modal', function(e) {
         opts.complete(e);
-        modalWindow.remove();   // Delete window after complete
+        self.modal.remove();   // Delete window after complete
     });
 
     // Add window to body
-    $(document.body).append(modalWindow);
+    $(document.body).append(this.modal);
 
     // Call before event
-    opts.before(modalWindow);
+    opts.before(this.modal);
     
     // Fire the modal window
-    modalWindow.modal();
+    this.modal.modal();
+
+    return this;
 }
 
 
@@ -220,7 +234,7 @@ bootpopup.alert = function(message, title, callback) {
     if(typeof callback !== "function")
         callback = function() {};
     
-    bootpopup({
+    return bootpopup({
         title: title,
         content: [{ p: {text: message}}],
         dismiss: function() { callback(); }
@@ -237,7 +251,7 @@ bootpopup.confirm = function(message, title, callback) {
         callback = function() {};
     
     var answer = false;
-    bootpopup({
+    return bootpopup({
         title: title,
         showclose: false,
         content: [{ p: {text: message}}],
@@ -293,7 +307,7 @@ bootpopup.prompt = function(label, type, message, title, callback) {
         callback_function = function(data) { callback_tmp(data.value); };
     }
     
-    bootpopup({
+    return bootpopup({
         title: title,
         content: content,
         buttons: ["cancel", "ok"],
