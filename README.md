@@ -188,11 +188,16 @@ via a dialog box, BootPopup will grab all that data and deliver to you through t
    ```javascript
    '<p class="lead">Popup dialog boxes for Bootstrap.</p>'
    ```
-## `bootpopup` object
+### `bootpopup` object
 
-The `bootpopup` object is returned every time you create a new instance of BootPopup.
+The `bootpopup` object is returned every time a new instance of BootPopup is created.
 
-### DOM elements
+#### Properties
+
+- `formid` - HTML ID of the form, this is a randomly generated
+- `options` - list of options used to create the window
+
+#### DOM elements
 
 All the following BootPopup properties are jQuery objects:
 
@@ -202,7 +207,6 @@ All the following BootPopup properties are jQuery objects:
 - `header` - header of the dialog
 - `body` - body of the dialog
 - `form` - main form in the dialog, inside the `body`
-- `formid` - HTML ID of the form, this is a randomly generated
 - `footer` - footer of the dialog
 - `btnClose` - close button (if present)
 - `btnOk` - OK button (if present)

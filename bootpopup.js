@@ -31,7 +31,7 @@ function bootpopup(options) {
     // Create a global random ID for the form
     this.formid = "bootpopup-form" + String(Math.random()).substr(2);
 
-    var opts = {
+    this.options = {
         title: document.title,
         showclose: true,
         size: "normal",
@@ -52,25 +52,25 @@ function bootpopup(options) {
     
     var buttons = [];
     for(key in options) {
-        if(key in opts)
-            opts[key] = options[key];
+        if(key in this.options)
+            this.options[key] = options[key];
         // If an event for a button is given, show the respective button
         if(["close", "ok", "cancel", "yes", "no"].indexOf(key) >= 0)
             buttons.push(key);
     }
-    // Copy news buttons to opts.buttons
+    // Copy news buttons to this.options.buttons
     if(buttons.length > 0) {
         // Clear default buttons if new are not given
-        if(!("buttons" in options)) opts.buttons = [];
+        if(!("buttons" in options)) this.options.buttons = [];
         buttons.forEach(function(item) {
-            if(opts.buttons.indexOf(item) < 0) opts.buttons.push(item);
+            if(this.options.buttons.indexOf(item) < 0) this.options.buttons.push(item);
         });
     }
 
     // Option for modal dialog size
     var classModalDialog = "modal-dialog";
-    if(opts.size == "large") classModalDialog += " modal-lg";
-    if(opts.size == "small") classModalDialog += " modal-sm";
+    if(this.options.size == "large") classModalDialog += " modal-lg";
+    if(this.options.size == "small") classModalDialog += " modal-sm";
 
     // Create HTML elements for modal dialog
     this.modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bootpopup-title"></div>');
@@ -81,9 +81,9 @@ function bootpopup(options) {
     
     // Header
     this.header = $('<div class="modal-header"></div>');
-    if(opts.showclose)
+    if(this.options.showclose)
         this.header.append('<button type="button" class="bootpopup-button close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
-    this.header.append('<h4 class="modal-title" id="bootpopup-title">' + opts.title + '</h4>');
+    this.header.append('<h4 class="modal-title" id="bootpopup-title">' + this.options.title + '</h4>');
     this.content.append(this.header);
     
     // Body
@@ -93,8 +93,8 @@ function bootpopup(options) {
     this.content.append(this.body);
 
     // Iterate over entries
-    for(var i in opts.content) {
-        var entry = opts.content[i];
+    for(var i in this.options.content) {
+        var entry = this.options.content[i];
         switch(typeof entry) {
             case "string":		// HTML string
                 this.form.append(entry);
@@ -140,10 +140,10 @@ function bootpopup(options) {
                         // Form Group
                         var formGroup = $('<div class="form-group"></div>').appendTo(form);
                         // Label
-                        $("<label></label>", { for: attrs.id, class: "control-label " + opts.size_labels, text: attrs.label }).appendTo(formGroup);
+                        $("<label></label>", { for: attrs.id, class: "control-label " + this.options.size_labels, text: attrs.label }).appendTo(formGroup);
 
                         // Input and div to control width
-                        var divInput = $('<div></div>', { class: opts.size_inputs });
+                        var divInput = $('<div></div>', { class: this.options.size_inputs });
                         divInput.append(input);
                         formGroup.append(divInput)
                     }
@@ -160,8 +160,8 @@ function bootpopup(options) {
     this.footer = $('<div class="modal-footer"></div>');
     this.content.append(this.footer);
 
-    for(key in opts.buttons) {
-        var item = opts.buttons[key];
+    for(key in this.options.buttons) {
+        var item = this.options.buttons[key];
         var btnClass = "";
         var btnText = "";
 
@@ -183,7 +183,7 @@ function bootpopup(options) {
 
             click: function(e) {
                 var button = $(e.target);
-                var callback = opts[button.data("callback")];
+                var callback = self.options[button.data("callback")];
                 var form = button.data("form");
                 var array = $("#" + form).serializeArray();
                 var keyval = {};
@@ -206,9 +206,9 @@ function bootpopup(options) {
     }
 
     // Setup events for dismiss and complete
-    this.modal.on('hide.bs.modal', opts.dismiss);
+    this.modal.on('hide.bs.modal', this.options.dismiss);
     this.modal.on('hidden.bs.modal', function(e) {
-        opts.complete(e);
+        self.options.complete(e);
         self.modal.remove();   // Delete window after complete
     });
 
@@ -216,7 +216,7 @@ function bootpopup(options) {
     $(document.body).append(this.modal);
 
     // Call before event
-    opts.before(this.modal);
+    this.options.before(this.modal);
     
     // Fire the modal window
     this.modal.modal();
