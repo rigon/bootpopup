@@ -236,6 +236,7 @@
             }
         }}],
     before: function(window) { alert(&quot;Before&quot;); },
+    dismiss: function(event) { alert(&quot;Dismiss&quot;); },
     cancel: function(data, array, event) { alert(&quot;Cancel&quot;); },
     ok: function(data, array, event) { alert(&quot;OK\n&quot; + JSON.stringify(data)); },
     complete: function() { alert(&quot;Complete&quot;); },
@@ -310,6 +311,7 @@
 							}
 						}}],
 					before: function(window) { alert("Before"); },
+					dismiss: function(event) { alert("Dismiss"); },
 					cancel: function(data, array, event) { alert("Cancel"); },
 					ok: function(data, array, event) { alert("OK\n" + JSON.stringify(data)); },
 					complete: function() { alert("Complete"); },
