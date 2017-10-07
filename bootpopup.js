@@ -42,6 +42,8 @@ function bootpopup(options) {
 		size_inputs: "col-sm-8",
 		content: [],
 		buttons: ["close"],
+		onsubmit: "close",
+
 		before: function() {},
 		dismiss: function() {},
 		close: function() {},
@@ -101,7 +103,7 @@ function bootpopup(options) {
 
 		// Body
 		this.body = $('<div class="modal-body"></div>');
-		this.form = $("<form></form>", { id: this.formid, class: "form-horizontal", onsubmit: "return false;" });
+		this.form = $("<form></form>", { id: this.formid, class: "form-horizontal" });
 		this.body.append(this.form);
 		this.content.append(this.body);
 
@@ -242,8 +244,13 @@ function bootpopup(options) {
 		var func = this.options[name];		// Get function to call
 		if(typeof func !== "function") return;
 		
+		// Perform callback
 		var array = this.form.serializeArray();
-		return func(this.data(), array, event);
+		var ret = func(this.data(), array, event);
+		
+		// Hide window
+		this.modal.modal("hide");
+		return ret;
 	}
 
 	this.dismiss = function() { this.callback("dismiss"); }
