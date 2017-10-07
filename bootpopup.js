@@ -195,7 +195,7 @@ function bootpopup(options) {
 				"data-form": this.formid,
 
 				click: function(event) {
-					var name = button.data("callback");
+					var name = $(event.target).data("callback");
 					self.callback(name, event);
 				}
 			});
