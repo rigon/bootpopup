@@ -197,6 +197,19 @@ The `bootpopup` object is returned every time a new instance of BootPopup is cre
 - `formid` - HTML ID of the form, this is a randomly generated
 - `options` - list of options used to create the window
 
+#### Methods
+
+ - `addOptions` - add options to the current options
+ - `setOptions` - override the current options, a list with all options is required
+ - `create` - create the window and add it to DOM, but not show
+ - `show` - show window and call `before` callback
+ - `dismiss` - call `dismiss` callback
+ - `close` - call `close` callback
+ - `ok` - call `ok` callback
+ - `cancel` - call `cancel` callback
+ - `yes` - call `yes` callback
+ - `no` - call `no` callback
+
 #### DOM elements
 
 All the following BootPopup properties are jQuery objects:

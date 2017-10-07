@@ -27,6 +27,9 @@ var INPUT_SHORTCUT_TYPES = [ "button", "text", "submit", "color", "url", "passwo
 
 
 function bootpopup(options) {
+	if(!(this instanceof bootpopup))
+		return new bootpopup(options);
+
 	var self = this;
 	// Create a global random ID for the form
 	this.formid = "bootpopup-form" + String(Math.random()).substr(2);
@@ -49,179 +52,210 @@ function bootpopup(options) {
 		complete: function() {},
 	}
 
+	this.addOptions = function(options) {
+		var buttons = [];
+		for(key in options) {
+			if(key in this.options)
+				this.options[key] = options[key];
+			// If an event for a button is given, show the respective button
+			if(["close", "ok", "cancel", "yes", "no"].indexOf(key) >= 0)
+				buttons.push(key);
+		}
+		// Copy news buttons to this.options.buttons
+		if(buttons.length > 0) {
+			// Clear default buttons if new are not given
+			if(!("buttons" in options)) this.options.buttons = [];
+			buttons.forEach(function(item) {
+				if(self.options.buttons.indexOf(item) < 0)
+					self.options.buttons.push(item);
+			});
+		}
 
-	var buttons = [];
-	for(key in options) {
-		if(key in this.options)
-			this.options[key] = options[key];
-		// If an event for a button is given, show the respective button
-		if(["close", "ok", "cancel", "yes", "no"].indexOf(key) >= 0)
-			buttons.push(key);
+		return this.options;
 	}
-	// Copy news buttons to this.options.buttons
-	if(buttons.length > 0) {
-		// Clear default buttons if new are not given
-		if(!("buttons" in options)) this.options.buttons = [];
-		buttons.forEach(function(item) {
-			if(this.options.buttons.indexOf(item) < 0) this.options.buttons.push(item);
-		});
+
+	this.setOptions = function(options) {
+		this.options = options;
+		return this.options;
 	}
 
-	// Option for modal dialog size
-	var classModalDialog = "modal-dialog";
-	if(this.options.size == "large") classModalDialog += " modal-lg";
-	if(this.options.size == "small") classModalDialog += " modal-sm";
+	this.create = function() {
+		// Option for modal dialog size
+		var classModalDialog = "modal-dialog";
+		if(this.options.size == "large") classModalDialog += " modal-lg";
+		if(this.options.size == "small") classModalDialog += " modal-sm";
 
-	// Create HTML elements for modal dialog
-	this.modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bootpopup-title"></div>');
-	this.dialog = $('<div></div>', { class: classModalDialog, role: "document" });
-	this.content = $('<div class="modal-content"></div>');
-	this.dialog.append(this.content);
-	this.modal.append(this.dialog);
+		// Create HTML elements for modal dialog
+		this.modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bootpopup-title"></div>');
+		this.dialog = $('<div></div>', { class: classModalDialog, role: "document" });
+		this.content = $('<div class="modal-content"></div>');
+		this.dialog.append(this.content);
+		this.modal.append(this.dialog);
 
-	// Header
-	this.header = $('<div class="modal-header"></div>');
-	if(this.options.showclose)
-		this.header.append('<button type="button" class="bootpopup-button close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
-	this.header.append('<h4 class="modal-title" id="bootpopup-title">' + this.options.title + '</h4>');
-	this.content.append(this.header);
+		// Header
+		this.header = $('<div class="modal-header"></div>');
+		if(this.options.showclose)
+			this.header.append('<button type="button" class="bootpopup-button close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
+		this.header.append('<h4 class="modal-title" id="bootpopup-title">' + this.options.title + '</h4>');
+		this.content.append(this.header);
 
-	// Body
-	this.body = $('<div class="modal-body"></div>');
-	this.form = $("<form></form>", { id: this.formid, class: "form-horizontal", onsubmit: "return false;" });
-	this.body.append(this.form);
-	this.content.append(this.body);
+		// Body
+		this.body = $('<div class="modal-body"></div>');
+		this.form = $("<form></form>", { id: this.formid, class: "form-horizontal", onsubmit: "return false;" });
+		this.body.append(this.form);
+		this.content.append(this.body);
 
-	// Iterate over entries
-	for(var i in this.options.content) {
-		var entry = this.options.content[i];
-		switch(typeof entry) {
-			case "string":		// HTML string
-				this.form.append(entry);
-				break;
-			case "object":
-				for(var type in entry) {
-					var attrs = entry[type];
+		// Iterate over entries
+		for(var i in this.options.content) {
+			var entry = this.options.content[i];
+			switch(typeof entry) {
+				case "string":		// HTML string
+					this.form.append(entry);
+					break;
+				case "object":
+					for(var type in entry) {
+						var attrs = entry[type];
 
-					// Convert functions to string to be used as callback
-					for(var attribute in attrs)
-						if(typeof attrs[attribute] === "function")
-							attrs[attribute] = "(" + attrs[attribute] + ")(this)";
+						// Convert functions to string to be used as callback
+						for(var attribute in attrs)
+							if(typeof attrs[attribute] === "function")
+								attrs[attribute] = "(" + attrs[attribute] + ")(this)";
 
-					// Check if type is a shortcut for input
-					if(INPUT_SHORTCUT_TYPES.indexOf(type) >= 0) {
-						attrs.type = type;  // Add attribute for type
-						type = "input";     // Continue to input
-					}
-
-					if(type == "input") {
-						// To avoid adding "form-control" class
-						if(attrs.type === "checkbox" && typeof attrs.class === "undefined")
-							attrs.class = "";
-
-						// Create a random id for the input if none provided
-						attrs.id = (typeof attrs.id === "undefined" ? "bootpopup-input" + String(Math.random()).substr(2) : attrs.id);
-						attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
-						attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
-
-						// Create input
-						var input = $("<input />", attrs);
-
-						// Special case for checkbox
-						if(attrs.type === "checkbox") {
-							input = $('<div class="checkbox"></div>')
-								.append($('<label></label>')
-								.append(input)
-								.append(attrs.label));
-							// Clear label to not add as header, it was added before
-							attrs.label = "";
+						// Check if type is a shortcut for input
+						if(INPUT_SHORTCUT_TYPES.indexOf(type) >= 0) {
+							attrs.type = type;  // Add attribute for type
+							type = "input";     // Continue to input
 						}
 
-						// Form Group
-						var formGroup = $('<div class="form-group"></div>').appendTo(form);
-						// Label
-						$("<label></label>", { for: attrs.id, class: "control-label " + this.options.size_labels, text: attrs.label }).appendTo(formGroup);
+						if(type == "input") {
+							// To avoid adding "form-control" class
+							if(attrs.type === "checkbox" && typeof attrs.class === "undefined")
+								attrs.class = "";
 
-						// Input and div to control width
-						var divInput = $('<div></div>', { class: this.options.size_inputs });
-						divInput.append(input);
-						formGroup.append(divInput)
+							// Create a random id for the input if none provided
+							attrs.id = (typeof attrs.id === "undefined" ? "bootpopup-input" + String(Math.random()).substr(2) : attrs.id);
+							attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
+							attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
+
+							// Create input
+							var input = $("<input />", attrs);
+
+							// Special case for checkbox
+							if(attrs.type === "checkbox") {
+								input = $('<div class="checkbox"></div>')
+									.append($('<label></label>')
+									.append(input)
+									.append(attrs.label));
+								// Clear label to not add as header, it was added before
+								attrs.label = "";
+							}
+
+							// Form Group
+							var formGroup = $('<div class="form-group"></div>').appendTo(this.form);
+							// Label
+							$("<label></label>", { for: attrs.id, class: "control-label " + this.options.size_labels, text: attrs.label }).appendTo(formGroup);
+
+							// Input and div to control width
+							var divInput = $('<div></div>', { class: this.options.size_inputs });
+							divInput.append(input);
+							formGroup.append(divInput)
+						}
+						else	// Anything else besides input
+							this.form.append($("<" + type + "></" + type + ">", attrs));	// Add directly
 					}
-					else	// Anything else besides input
-						this.form.append($("<" + type + "></" + type + ">", attrs));     // Add directly
-				}
-				break;
-			default:
-				throw "Invalid entry type";
-		}
-	}
-
-	// Footer
-	this.footer = $('<div class="modal-footer"></div>');
-	this.content.append(this.footer);
-
-	for(key in this.options.buttons) {
-		var item = this.options.buttons[key];
-		var btnClass = "";
-		var btnText = "";
-
-		switch(item) {
-			case "close": btnClass = "btn-primary"; btnText = "Close"; break;
-			case "ok": btnClass = "btn-primary"; btnText = "OK"; break;
-			case "cancel": btnClass = "btn-default"; btnText = "Cancel"; break;
-			case "yes": btnClass = "btn-primary"; btnText = "Yes"; break;
-			case "no": btnClass = "btn-default"; btnText = "No"; break;
-		}
-
-		var button = $("<button></button>", {
-			type: "button",
-			text: btnText,
-			class: "btn " + btnClass,
-			"data-dismiss": "modal",
-			"data-callback": item,
-			"data-form": this.formid,
-
-			click: function(e) {
-				var button = $(e.target);
-				var callback = self.options[button.data("callback")];
-				var form = button.data("form");
-				var array = $("#" + form).serializeArray();
-				var keyval = {};
-				for(var i in array)
-					keyval[array[i].name] = array[i].value;
-
-				callback(keyval, array, e);
+					break;
+				default:
+					throw "Invalid entry type";
 			}
-		});
-		this.footer.append(button);
-
-		// Reference for buttons
-		switch(item) {
-			case "close": this.btnClose = button; break;
-			case "ok": this.btnOk = button; break;
-			case "cancel": this.btnCancel = button; break;
-			case "yes": this.btnYes = button; break;
-			case "no": this.btnNo = button; break;
 		}
+
+		// Footer
+		this.footer = $('<div class="modal-footer"></div>');
+		this.content.append(this.footer);
+
+		for(key in this.options.buttons) {
+			var item = this.options.buttons[key];
+			var btnClass = "";
+			var btnText = "";
+
+			switch(item) {
+				case "close": btnClass = "btn-primary"; btnText = "Close"; break;
+				case "ok": btnClass = "btn-primary"; btnText = "OK"; break;
+				case "cancel": btnClass = "btn-default"; btnText = "Cancel"; break;
+				case "yes": btnClass = "btn-primary"; btnText = "Yes"; break;
+				case "no": btnClass = "btn-default"; btnText = "No"; break;
+			}
+
+			var button = $("<button></button>", {
+				type: "button",
+				text: btnText,
+				class: "btn " + btnClass,
+				"data-dismiss": "modal",
+				"data-callback": item,
+				"data-form": this.formid,
+
+				click: function(event) {
+					var name = button.data("callback");
+					self.callback(name, event);
+				}
+			});
+			this.footer.append(button);
+
+			// Reference for buttons
+			switch(item) {
+				case "close": this.btnClose = button; break;
+				case "ok": this.btnOk = button; break;
+				case "cancel": this.btnCancel = button; break;
+				case "yes": this.btnYes = button; break;
+				case "no": this.btnNo = button; break;
+			}
+		}
+
+		// Setup events for dismiss and complete
+		this.modal.on('hide.bs.modal', this.options.dismiss);
+		this.modal.on('hidden.bs.modal', function(e) {
+			self.options.complete(e);
+			self.modal.remove();	// Delete window after complete
+		});
+		
+		// Add window to body
+		$(document.body).append(this.modal);
 	}
 
-	// Setup events for dismiss and complete
-	this.modal.on('hide.bs.modal', this.options.dismiss);
-	this.modal.on('hidden.bs.modal', function(e) {
-		self.options.complete(e);
-		self.modal.remove();   // Delete window after complete
-	});
+	this.show = function() {
+		// Call before event
+		this.options.before(this.modal);
 
-	// Add window to body
-	$(document.body).append(this.modal);
+		// Fire the modal window
+		this.modal.modal();
+	}
 
-	// Call before event
-	this.options.before(this.modal);
+	this.data = function() {
+		var keyval = {};
+		var array = this.form.serializeArray();
+		for(var i in array)
+			keyval[array[i].name] = array[i].value;
+		return keyval;
+	};
 
-	// Fire the modal window
-	this.modal.modal();
+	this.callback = function(name, event) {
+		var func = this.options[name];		// Get function to call
+		if(typeof func !== "function") return;
+		
+		var array = this.form.serializeArray();
+		return func(this.data(), array, event);
+	}
 
-	return this;
+	this.dismiss = function() { this.callback("dismiss"); }
+	this.close = function() { this.callback("close"); }
+	this.ok = function() { this.callback("ok"); }
+	this.cancel = function() { this.callback("cancel"); }
+	this.yes = function() { this.callback("yes"); }
+	this.no = function() { this.callback("no"); }
+
+	this.addOptions(options);
+	this.create();
+	this.show();
 }
 
 
