@@ -237,7 +237,7 @@ function bootpopup(options) {
 
 	this.show = function() {
 		// Call before event
-		this.options.before(this.modal);
+		this.options.before(this);
 
 		// Fire the modal window
 		this.modal.modal();
