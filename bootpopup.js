@@ -27,6 +27,7 @@ var INPUT_SHORTCUT_TYPES = [ "button", "text", "submit", "color", "url", "passwo
 
 
 function bootpopup(options) {
+	// Create a new instance if this is not
 	if(!(this instanceof bootpopup))
 		return new bootpopup(options);
 
@@ -41,8 +42,8 @@ function bootpopup(options) {
 		size_labels: "col-sm-4",
 		size_inputs: "col-sm-8",
 		content: [],
-		buttons: ["close"],
 		onsubmit: "close",
+		buttons: ["close"],
 
 		before: function() {},
 		dismiss: function() {},
@@ -52,6 +53,10 @@ function bootpopup(options) {
 		yes: function() {},
 		no: function() {},
 		complete: function() {},
+		submit: function(e) {
+			self.callback(self.options.onsubmit, e);
+			return false;	// Cancel form submision
+		}
 	}
 
 	this.addOptions = function(options) {
@@ -71,6 +76,12 @@ function bootpopup(options) {
 				if(self.options.buttons.indexOf(item) < 0)
 					self.options.buttons.push(item);
 			});
+		}
+		// Determine what is the best action if none is given
+		if(typeof options.onsubmit !== "string") {
+			if(this.options.buttons.indexOf("close") > 0) this.options.onsubmit = "close";
+			else if(this.options.buttons.indexOf("ok") > 0) this.options.onsubmit = "ok";
+			else if(this.options.buttons.indexOf("yes") > 0) this.options.onsubmit = "yes";
 		}
 
 		return this.options;
@@ -96,14 +107,14 @@ function bootpopup(options) {
 
 		// Header
 		this.header = $('<div class="modal-header"></div>');
-		if(this.options.showclose)
+		if(this.options.showclose)	// Close button
 			this.header.append('<button type="button" class="bootpopup-button close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
 		this.header.append('<h4 class="modal-title" id="bootpopup-title">' + this.options.title + '</h4>');
 		this.content.append(this.header);
 
 		// Body
 		this.body = $('<div class="modal-body"></div>');
-		this.form = $("<form></form>", { id: this.formid, class: "form-horizontal" });
+		this.form = $("<form></form>", { id: this.formid, class: "form-horizontal", submit: function(e) { return self.options.submit(e); } });
 		this.body.append(this.form);
 		this.content.append(this.body);
 
@@ -254,6 +265,7 @@ function bootpopup(options) {
 	}
 
 	this.dismiss = function() { this.callback("dismiss"); }
+	this.submit = function() { this.callback("submit"); }
 	this.close = function() { this.callback("close"); }
 	this.ok = function() { this.callback("ok"); }
 	this.cancel = function() { this.callback("cancel"); }

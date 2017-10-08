@@ -16,6 +16,9 @@ See it in action in [BootPopup - Examples](http://www.bootpopup.tk/#examples)
     - [About the buttons option](#about-the-buttons-option)
     - [About the content option](#about-the-content-option)
   - [bootpopup object](#bootpopup-object)
+    - [Properties](#properties)
+    - [Methods](#methods)
+    - [DOM Elements](#dom-elements)
 - [Examples](#examples)
 - [Migration from previous version to v1](#migration-from-previous-version-to-v1)
 
@@ -106,9 +109,11 @@ Shows a customized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `bootp
 | size        | string   | `normal`         | `large`             | Size of the modal window. Values accepted: `small`, `normal`, `large` ([Bootstrap Modal optional sizes](https://getbootstrap.com/docs/3.3/javascript/#modals-sizes))
 | size_labels | string   | `col-sm-4`       | `col-lg-2`          | Any class name or list of classes to apply to labels in the form. Preferably classes from [Bootstrap Grid system](https://getbootstrap.com/docs/3.3/css/#grid)
 | size_inputs | string   | `col-sm-8`       | `col-lg-10`         | Any class name or list of classes to apply to inputs (div that wraps the input) in the form. Preferably classes from [Bootstrap Grid system](https://getbootstrap.com/docs/3.3/css/#grid)
+| onsubmit    | string   | `close`          | `ok`                | Default action to be executed when the form is sumitted. This is overrided if you define a callback for `submit`. The possible options are: `close`, `ok`, `cancel`, `yes`, `no`.
 | buttons     | array    | `["close"]`      | `[ "yes", "no"]`    | List of buttons to show in the bottom of the dialog box. The possible options are: `close`, `ok`, `cancel`, `yes`, `no`. Learn more [about the buttons option](#about-the-buttons-option)
 | before      | function | `function() {}`  | `function(diag) {}` | Called before the window is shown, but after being created. `diag` provides the HTML object for the dialog
 | dismiss     | function | `function() {}`  | `function(data) {}` | Called when the window is dismissed
+| submit      | function | `function() {}`  | `function(data) {}` | Called when the form is submitted. Returning `false` will cancel submission
 | close       | function | `function() {}`  | `function(data) {}` | Called when Close button is selected
 | ok          | function | `function() {}`  | `function(data) {}` | Called when OK button is selected
 | cancel      | function | `function() {}`  | `function(data) {}` | Called when Cancel button is selected
@@ -203,12 +208,13 @@ The `bootpopup` object is returned every time a new instance of BootPopup is cre
  - `setOptions` - override the current options, a list with all options is required
  - `create` - create the window and add it to DOM, but not show
  - `show` - show window and call `before` callback
- - `dismiss` - call `dismiss` callback
- - `close` - call `close` callback
- - `ok` - call `ok` callback
- - `cancel` - call `cancel` callback
- - `yes` - call `yes` callback
- - `no` - call `no` callback
+ - `dismiss` - performs a `dismiss`
+ - `submit` - performs a `submit`
+ - `close` - performs a `close`
+ - `ok` - performs a `ok`
+ - `cancel` - performs a `cancel`
+ - `yes` - performs a `yes`
+ - `no` - performs a `no`
 
 #### DOM elements
 
