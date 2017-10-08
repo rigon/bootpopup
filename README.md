@@ -111,7 +111,7 @@ Shows a customized dialog box. `bootpopup.alert`, `bootpopup.confirm` and `bootp
 | size_inputs | string   | `col-sm-8`       | `col-lg-10`         | Any class name or list of classes to apply to inputs (div that wraps the input) in the form. Preferably classes from [Bootstrap Grid system](https://getbootstrap.com/docs/3.3/css/#grid)
 | onsubmit    | string   | `close`          | `ok`                | Default action to be executed when the form is sumitted. This is overrided if you define a callback for `submit`. The possible options are: `close`, `ok`, `cancel`, `yes`, `no`.
 | buttons     | array    | `["close"]`      | `[ "yes", "no"]`    | List of buttons to show in the bottom of the dialog box. The possible options are: `close`, `ok`, `cancel`, `yes`, `no`. Learn more [about the buttons option](#about-the-buttons-option)
-| before      | function | `function() {}`  | `function(diag) {}` | Called before the window is shown, but after being created. `diag` provides the HTML object for the dialog
+| before      | function | `function() {}`  | `function(diag) {}` | Called before the window is shown, but after being created. `diag` provides the instance to `bootpopup` object
 | dismiss     | function | `function() {}`  | `function(data) {}` | Called when the window is dismissed
 | submit      | function | `function() {}`  | `function(data) {}` | Called when the form is submitted. Returning `false` will cancel submission
 | close       | function | `function() {}`  | `function(data) {}` | Called when Close button is selected
