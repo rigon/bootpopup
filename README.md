@@ -78,7 +78,7 @@ Shows a prompt dialog box, asking to input multiple values.
 **Return:** instance of BootPopup window
 
 - **list_types**:
-  - `(string)` array of objects with the description of values being asked:
+  - `(array)` array of objects with the description of values being asked:
     - **label** label of the value
     - **type** type of the value (default is `text`)
     - **name** key used in the data returned to the callback (default is label in lowercase and dashed)
