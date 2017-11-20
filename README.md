@@ -19,6 +19,7 @@ See it in action in [BootPopup - Examples](http://www.bootpopup.tk/#examples)
     - [Properties](#properties)
     - [Methods](#methods)
     - [DOM Elements](#dom-elements)
+- [Build](#build)
 - [Examples](#examples)
 - [Migration from previous version to v1](#migration-from-previous-version-to-v1)
 
@@ -232,6 +233,16 @@ All the following BootPopup properties are jQuery objects:
 - `btnCancel` - cancel button (if present)
 - `btnYes` - yes button (if present)
 - `btnNo` - no button (if present)
+
+
+## Build
+
+In order to build a version for distribution, please run:
+
+    npm install
+    npm run dist
+
+The output file is `bootpopup.min.js`
 
 
 ## Examples
