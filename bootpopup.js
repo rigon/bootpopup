@@ -100,7 +100,6 @@ function bootpopup(options) {
 
 		// Create HTML elements for modal dialog
 		this.modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="bootpopup-title"></div>');
-		if(this.options.showclose) this.modal.attr('data-backdrop', 'static');//dont close on backdrop click
 		this.dialog = $('<div></div>', { class: classModalDialog, role: "document" });
 		this.content = $('<div class="modal-content"></div>');
 		this.dialog.append(this.content);
@@ -231,6 +230,10 @@ function bootpopup(options) {
 			self.options.complete(e);
 			self.modal.remove();	// Delete window after complete
 		});
+		
+		// Don't close on backdrop click
+		if(this.options.showclose === false)
+			this.modal.attr('data-backdrop', 'static');
 		
 		// Add window to body
 		$(document.body).append(this.modal);
