@@ -231,6 +231,10 @@ function bootpopup(options) {
 			self.modal.remove();	// Delete window after complete
 		});
 		
+		// Don't close on backdrop click
+		if(this.options.showclose === false)
+			this.modal.attr('data-backdrop', 'static');
+		
 		// Add window to body
 		$(document.body).append(this.modal);
 	}
