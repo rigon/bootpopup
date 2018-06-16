@@ -18,7 +18,7 @@
 
 
 /* // List of input types
-case "button": case "checkbox": case "color": case "date": case "datetime-local": 
+case "button": case "checkbox": case "color": case "date": case "datetime-local":
 case "email": case "file": case "hidden": case "image": case "month": case "number":
 case "password": case "radio": case "range": case "reset": case "search":
 case "submit": case "tel": case "text": case "time": case "url": case "week": */
@@ -230,11 +230,11 @@ function bootpopup(options) {
 			self.options.complete(e);
 			self.modal.remove();	// Delete window after complete
 		});
-		
+
 		// Don't close on backdrop click
 		if(this.options.showclose === false)
 			this.modal.attr('data-backdrop', 'static');
-		
+
 		// Add window to body
 		$(document.body).append(this.modal);
 	}
@@ -258,11 +258,11 @@ function bootpopup(options) {
 	this.callback = function(name, event) {
 		var func = this.options[name];		// Get function to call
 		if(typeof func !== "function") return;
-		
+
 		// Perform callback
 		var array = this.form.serializeArray();
 		var ret = func(this.data(), array, event);
-		
+
 		// Hide window
 		this.modal.modal("hide");
 		return ret;
@@ -350,6 +350,10 @@ bootpopup.prompt = function(label, type, message, title, callback) {
 	// If label is a list of values to be asked to input
 	if(typeof label === "object") {
 		label.forEach(function(entry) {
+      if(typeof entry == "string"){
+        content.push(entry);
+        return
+      }
 			if(typeof entry.name !== "string")  // Name in lower case and dashes instead spaces
 				entry.name = entry.label.toLowerCase().replace(/\s+/g, "-");
 			if(typeof entry.type !== "string")
