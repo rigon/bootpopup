@@ -15,7 +15,7 @@
   "version": "1.5.0",
   "scripts": {
     "dist": "uglifyjs --compress --mangle -- bootpopup.js > dist/bootpopup.min.js",
-    "postinstall": "mkdir -p dist && while read file; do cp $file dist; done < dist/.files.txt",
+    "postinstall": "mkdir -p dist && while read file; do cp -Rv $file dist; done < dist/.files.txt",
     "prepublish": "npm run dist",
     "server": "static-server",
     "start": "nodemon --watch bootpopup.js --exec 'npm run build' --exec 'npm run server'"
