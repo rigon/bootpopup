@@ -245,6 +245,16 @@ In order to build a version for distribution, please run:
 The output file is `bootpopup.min.js`
 
 
+## Test locally
+
+Please run:
+
+    npm install
+    npm start
+
+Now, you can open http://localhost:9080/
+
+
 ## Examples
 
 Open `index.html` to see the library in action.
