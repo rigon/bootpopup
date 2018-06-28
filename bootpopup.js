@@ -23,7 +23,7 @@ case "email": case "file": case "hidden": case "image": case "month": case "numb
 case "password": case "radio": case "range": case "reset": case "search":
 case "submit": case "tel": case "text": case "time": case "url": case "week": */
 var INPUT_SHORTCUT_TYPES = [ "button", "text", "submit", "color", "url", "password",
-	"hidden", "file", "number", "email", "reset", "date", "checkbox" ];
+	"hidden", "file", "number", "email", "reset", "date", "checkbox", "select", "radio" ];
 
 
 function bootpopup(options) {
@@ -145,22 +145,44 @@ function bootpopup(options) {
 						if(attrs.type === "checkbox" && typeof attrs.class === "undefined")
 							attrs.class = "";
 
-							// Create a random id for the input if none provided
+						// Create a random id for the input if none provided
 						attrs.id = (typeof attrs.id === "undefined" ? "bootpopup-input" + String(Math.random()).substr(2) : attrs.id);
 						attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
 						attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
 
-						// Create input
-						var input = $("<input />", attrs);
 
-						// Special case for checkbox
-						if(attrs.type === "checkbox") {
-							input = $('<div class="checkbox"></div>')
-								.append($('<label></label>')
-									.append(input)
-									.append(attrs.label));
-							// Clear label to not add as header, it was added before
-							attrs.label = "";
+						// Create input
+						var input;
+						switch(attrs.type) {
+							case "checkbox":
+								// Special case for checkbox
+								input = $('<div class="checkbox"></div>')
+									.append($('<label></label>')
+										.append($("<input />", attrs))
+										.append(attrs.label));
+								
+								// Clear label to not be added as header
+								attrs.label = "";
+								break;
+							case "select":
+								// Special case for select
+								input = $("<select></select>", attrs);
+								for(var option in attrs.options)
+									input.append($("<option></option>", { value: option })
+										.append(attrs.options[option]));
+								
+								break;
+							case "radio":
+								// Special case for radios
+								input = [];
+								for(var option in attrs.options)
+									input.push($('<div class="radio"></div>', attrs)
+										.append($('<label></label>')
+											.append($("<input />", { type: "radio", name: attrs.name, value: option }))
+											.append(attrs.options[option])));
+								break;
+							default:
+								input = $("<input />", attrs);
 						}
 
 						// Form Group
@@ -250,8 +272,18 @@ function bootpopup(options) {
 	this.data = function() {
 		var keyval = {};
 		var array = this.form.serializeArray();
-		for(var i in array)
-			keyval[array[i].name] = array[i].value;
+		for(var i in array) {
+			var name = array[i].name, val = array[i].value;
+
+			if(typeof keyval[name] === "undefined")
+				keyval[name] = val;
+			else {
+				if(!Array.isArray(keyval[name]))
+					keyval[name] = [keyval[name]];
+				keyval[name].push(val);
+			}
+
+		}
 		return keyval;
 	};
 
@@ -350,15 +382,24 @@ bootpopup.prompt = function(label, type, message, title, callback) {
 	// If label is a list of values to be asked to input
 	if(typeof label === "object") {
 		label.forEach(function(entry) {
-			if (typeof entry === "string") {
-				content.push(entry);
-				return;
+			var obj = null;
+
+			// HTML
+			if (typeof entry === "string")
+				obj = entry;
+			
+			// Input
+			if ( entry !== null && typeof entry === "object" && typeof entry.label === "string") {
+				if(typeof entry.name !== "string")  // Name in lower case and dashes instead spaces
+					entry.name = entry.label.toLowerCase().replace(/\s+/g, "-");
+				if(typeof entry.type !== "string")
+					entry.type = "text";
+				
+				obj = { input: entry };
 			}
-			if(typeof entry.name !== "string")  // Name in lower case and dashes instead spaces
-				entry.name = entry.label.toLowerCase().replace(/\s+/g, "-");
-			if(typeof entry.type !== "string")
-				entry.type = "text";
-			content.push({ input: entry });
+
+			if(obj !== null)
+				content.push(obj);
 		});
 	}
 	else {
