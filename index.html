@@ -256,9 +256,9 @@
         &apos;&lt;b&gt;BootPopup&lt;/b&gt; is a JavaScript library intended to simplify the task of creating &lt;a href=&quot;#&quot;&gt;Bootstrap modals&lt;/a&gt;&apos;,
         &apos;&lt;p class=&quot;lead&quot;&gt;Check out the &lt;a href=&quot;#examples&quot; data-scrollto=&quot;#examples&quot;&gt;examples&lt;/a&gt; to see how easy it is!&lt;/p&gt;&apos;,
         &apos;Give us a rate 1-10:&apos;,
-        { input: {type: &quot;number&quot;, label: &quot;Rate&quot;, name: &quot;rate&quot;, value: &quot;11&quot;}},
-        { input: { label: &quot;A select&quot;, type: &quot;select&quot;, name: &quot;select&quot;, options: { a:&quot;A&quot;, b:&quot;B&quot;, c:&quot;C&quot; }}},
-        { input: { label: &quot;Radios&quot;, type: &quot;radio&quot;, name: &quot;radios&quot;, options: { a:&quot;A&quot;, b:&quot;B&quot;, c:&quot;C&quot; }}}
+        { number: { label: &quot;Rate&quot;, name: &quot;rate&quot;, value: &quot;11&quot;}},
+        { select: { label: &quot;A select&quot;, name: &quot;select&quot;, options: { a:&quot;A&quot;, b:&quot;B&quot;, c:&quot;C&quot; }}},
+        { radio: { label: &quot;Radios&quot;, name: &quot;radios&quot;, options: { a:&quot;A&quot;, b:&quot;B&quot;, c:&quot;C&quot; }}}
     ],
     cancel: function(data, array, event) { alert(&quot;Cancel&quot;); },
     ok: function(data, array, event) { alert(&quot;OK\n&quot; + JSON.stringify(data)); },
@@ -340,9 +340,9 @@
 						'<b>BootPopup</b> is a JavaScript library intended to simplify the task of creating <a href="#">Bootstrap modals</a>',
 						'<p class="lead">Check out the <a href="#examples" data-scrollto="#examples">examples</a> to see how easy it is!</p>',
 						'Give us a rate 1-10:',
-						{ input: {type: "number", label: "Rate", name: "rate", value: "11"}},
-						{ input: { label: "A select", type: "select", name: "select", options: { a:"A", b:"B", c:"C" }}},
-						{ input: { label: "Radios", type: "radio", name: "radios", options: { a:"A", b:"B", c:"C" }}}
+						{ number: { label: "Rate", name: "rate", value: "11" }},
+						{ select: { label: "A select", name: "select", options: { a:"A", b:"B", c:"C" }}},
+						{ radio: { label: "Radios", name: "radios", options: { a:"A", b:"B", c:"C" }}}
 					],
 					cancel: function(data, array, event) { alert("Cancel"); },
 					ok: function(data, array, event) { alert("OK\n" + JSON.stringify(data)); },

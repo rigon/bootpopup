@@ -20,6 +20,7 @@ See it in action in [BootPopup - Examples](http://www.bootpopup.tk/#examples)
     - [Methods](#methods)
     - [DOM Elements](#dom-elements)
 - [Build](#build)
+- [Test locally](#test-locally)
 - [Examples](#examples)
 - [Migration from previous version to v1](#migration-from-previous-version-to-v1)
 
@@ -172,12 +173,20 @@ via a dialog box, BootPopup will grab all that data and deliver to you through t
    ```
    
 3. In order to make it even simpler, there are shortcuts for most common input types (`button`, `text`, `submit`, `color`,
-   `url`, `password`, `hidden`, `file`, `number`, `email`, `reset`, `date`).
+   `url`, `password`, `hidden`, `file`, `number`, `email`, `reset`, `date`, `select`, `radio`).
    The previous example can be simply written as:
    
    ```javascript
    { text: {label: "Title", name: "title", placeholder: "Description" }}
    ```
+
+   **NOTE:** `select` and `radio` have a special attribute named `options`. You can specify a list of options to be shown (the key is used as value by the input and the value is the text displayed):
+
+   ```javascript
+   { select: { label: "Select", name: "select", options: { a:"A", b:"B", c:"C" }}}
+   ```
+   
+   `select` with attribute `multiple` is also supported.
 
 4. Another useful feature is the ability to support functions directly as an attribute. Take the following `button` example:
    
