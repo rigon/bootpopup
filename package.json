@@ -19,7 +19,7 @@
     "postinstall": "mkdir -p dist && while read file; do cp -Rv $file dist; done < dist/.files.txt",
     "prepublish": "npm run dist",
     "server": "static-server",
-    "start": "nodemon --watch bootpopup.js --exec 'npm run build' --exec 'npm run server'"
+    "start": "nodemon --watch bootpopup.js --exec 'npm run dist && npm run server'"
   },
   "ignore": [
     "**/.*",
