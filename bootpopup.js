@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *************************************************************************/
 
-
+ 
 /* // List of input types
 case "button": case "checkbox": case "color": case "date": case "datetime-local":
 case "email": case "file": case "hidden": case "image": case "month": case "number":
 case "password": case "radio": case "range": case "reset": case "search":
 case "submit": case "tel": case "text": case "time": case "url": case "week": */
 var INPUT_SHORTCUT_TYPES = [ "button", "text", "submit", "color", "url", "password",
-    "hidden", "file", "number", "email", "reset", "date", "checkbox" ];
+	"hidden", "file", "number", "email", "reset", "date", "checkbox" ];
 
 
 function bootpopup(options) {
@@ -57,11 +57,11 @@ function bootpopup(options) {
 			self.callback(self.options.onsubmit, e);
 			return false;	// Cancel form submision
 		}
-	}
+	};
 
 	this.addOptions = function(options) {
 		var buttons = [];
-		for(key in options) {
+		for(var key in options) {
 			if(key in this.options)
 				this.options[key] = options[key];
 			// If an event for a button is given, show the respective button
@@ -85,12 +85,12 @@ function bootpopup(options) {
 		}
 
 		return this.options;
-	}
+	};
 
 	this.setOptions = function(options) {
 		this.options = options;
 		return this.options;
-	}
+	};
 
 	this.create = function() {
 		// Option for modal dialog size
@@ -122,63 +122,63 @@ function bootpopup(options) {
 		for(var i in this.options.content) {
 			var entry = this.options.content[i];
 			switch(typeof entry) {
-				case "string":		// HTML string
-					this.form.append(entry);
-					break;
-				case "object":
-					for(var type in entry) {
-						var attrs = entry[type];
+			case "string":		// HTML string
+				this.form.append(entry);
+				break;
+			case "object":
+				for(var type in entry) {
+					var attrs = entry[type];
 
-						// Convert functions to string to be used as callback
-						for(var attribute in attrs)
-							if(typeof attrs[attribute] === "function")
-								attrs[attribute] = "(" + attrs[attribute] + ")(this)";
+					// Convert functions to string to be used as callback
+					for(var attribute in attrs)
+						if(typeof attrs[attribute] === "function")
+							attrs[attribute] = "(" + attrs[attribute] + ")(this)";
 
-						// Check if type is a shortcut for input
-						if(INPUT_SHORTCUT_TYPES.indexOf(type) >= 0) {
-							attrs.type = type;  // Add attribute for type
-							type = "input";     // Continue to input
-						}
+					// Check if type is a shortcut for input
+					if(INPUT_SHORTCUT_TYPES.indexOf(type) >= 0) {
+						attrs.type = type;  // Add attribute for type
+						type = "input";     // Continue to input
+					}
 
-						if(type == "input") {
-							// To avoid adding "form-control" class
-							if(attrs.type === "checkbox" && typeof attrs.class === "undefined")
-								attrs.class = "";
+					if(type == "input") {
+						// To avoid adding "form-control" class
+						if(attrs.type === "checkbox" && typeof attrs.class === "undefined")
+							attrs.class = "";
 
 							// Create a random id for the input if none provided
-							attrs.id = (typeof attrs.id === "undefined" ? "bootpopup-input" + String(Math.random()).substr(2) : attrs.id);
-							attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
-							attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
+						attrs.id = (typeof attrs.id === "undefined" ? "bootpopup-input" + String(Math.random()).substr(2) : attrs.id);
+						attrs.class = (typeof attrs.class === "undefined" ? "form-control" : attrs.class);
+						attrs.type = (typeof attrs.type === "undefined" ? "text" : attrs.type);
 
-							// Create input
-							var input = $("<input />", attrs);
+						// Create input
+						var input = $("<input />", attrs);
 
-							// Special case for checkbox
-							if(attrs.type === "checkbox") {
-								input = $('<div class="checkbox"></div>')
-									.append($('<label></label>')
+						// Special case for checkbox
+						if(attrs.type === "checkbox") {
+							input = $('<div class="checkbox"></div>')
+								.append($('<label></label>')
 									.append(input)
 									.append(attrs.label));
-								// Clear label to not add as header, it was added before
-								attrs.label = "";
-							}
-
-							// Form Group
-							var formGroup = $('<div class="form-group"></div>').appendTo(this.form);
-							// Label
-							$("<label></label>", { for: attrs.id, class: "control-label " + this.options.size_labels, text: attrs.label }).appendTo(formGroup);
-
-							// Input and div to control width
-							var divInput = $('<div></div>', { class: this.options.size_inputs });
-							divInput.append(input);
-							formGroup.append(divInput)
+							// Clear label to not add as header, it was added before
+							attrs.label = "";
 						}
-						else	// Anything else besides input
-							this.form.append($("<" + type + "></" + type + ">", attrs));	// Add directly
+
+						// Form Group
+						var formGroup = $('<div class="form-group"></div>').appendTo(this.form);
+						// Label
+						$("<label></label>", { for: attrs.id, class: "control-label " + this.options.size_labels, text: attrs.label }).appendTo(formGroup);
+
+						// Input and div to control width
+						var divInput = $('<div></div>', { class: this.options.size_inputs });
+						divInput.append(input);
+						formGroup.append(divInput);
 					}
-					break;
-				default:
-					throw "Invalid entry type";
+					else	// Anything else besides input
+						this.form.append($("<" + type + "></" + type + ">", attrs));	// Add directly
+				}
+				break;
+			default:
+				throw "Invalid entry type";
 			}
 		}
 
@@ -186,17 +186,17 @@ function bootpopup(options) {
 		this.footer = $('<div class="modal-footer"></div>');
 		this.content.append(this.footer);
 
-		for(key in this.options.buttons) {
+		for(var key in this.options.buttons) {
 			var item = this.options.buttons[key];
 			var btnClass = "";
 			var btnText = "";
 
 			switch(item) {
-				case "close": btnClass = "btn-primary"; btnText = "Close"; break;
-				case "ok": btnClass = "btn-primary"; btnText = "OK"; break;
-				case "cancel": btnClass = "btn-default"; btnText = "Cancel"; break;
-				case "yes": btnClass = "btn-primary"; btnText = "Yes"; break;
-				case "no": btnClass = "btn-default"; btnText = "No"; break;
+			case "close": btnClass = "btn-primary"; btnText = "Close"; break;
+			case "ok": btnClass = "btn-primary"; btnText = "OK"; break;
+			case "cancel": btnClass = "btn-default"; btnText = "Cancel"; break;
+			case "yes": btnClass = "btn-primary"; btnText = "Yes"; break;
+			case "no": btnClass = "btn-default"; btnText = "No"; break;
 			}
 
 			var button = $("<button></button>", {
@@ -216,11 +216,11 @@ function bootpopup(options) {
 
 			// Reference for buttons
 			switch(item) {
-				case "close": this.btnClose = button; break;
-				case "ok": this.btnOk = button; break;
-				case "cancel": this.btnCancel = button; break;
-				case "yes": this.btnYes = button; break;
-				case "no": this.btnNo = button; break;
+			case "close": this.btnClose = button; break;
+			case "ok": this.btnOk = button; break;
+			case "cancel": this.btnCancel = button; break;
+			case "yes": this.btnYes = button; break;
+			case "no": this.btnNo = button; break;
 			}
 		}
 
@@ -237,7 +237,7 @@ function bootpopup(options) {
 
 		// Add window to body
 		$(document.body).append(this.modal);
-	}
+	};
 
 	this.show = function() {
 		// Call before event
@@ -245,7 +245,7 @@ function bootpopup(options) {
 
 		// Fire the modal window
 		this.modal.modal();
-	}
+	};
 
 	this.data = function() {
 		var keyval = {};
@@ -266,15 +266,15 @@ function bootpopup(options) {
 		// Hide window
 		this.modal.modal("hide");
 		return ret;
-	}
+	};
 
-	this.dismiss = function() { this.callback("dismiss"); }
-	this.submit = function() { this.callback("submit"); }
-	this.close = function() { this.callback("close"); }
-	this.ok = function() { this.callback("ok"); }
-	this.cancel = function() { this.callback("cancel"); }
-	this.yes = function() { this.callback("yes"); }
-	this.no = function() { this.callback("no"); }
+	this.dismiss = function() { this.callback("dismiss"); };
+	this.submit = function() { this.callback("submit"); };
+	this.close = function() { this.callback("close"); };
+	this.ok = function() { this.callback("ok"); };
+	this.cancel = function() { this.callback("cancel"); };
+	this.yes = function() { this.callback("yes"); };
+	this.no = function() { this.callback("no"); };
 
 	this.addOptions(options);
 	this.create();
@@ -296,7 +296,7 @@ bootpopup.alert = function(message, title, callback) {
 		content: [{ p: { text: message } }],
 		dismiss: function() { callback(); }
 	});
-}
+};
 
 bootpopup.confirm = function(message, title, callback) {
 	if(typeof title === "function")
@@ -316,7 +316,7 @@ bootpopup.confirm = function(message, title, callback) {
 		yes: function() { answer = true; },
 		dismiss: function() { callback(answer); }
 	});
-}
+};
 
 bootpopup.prompt = function(label, type, message, title, callback) {
 	// Callback can be in any position, except label
@@ -350,10 +350,10 @@ bootpopup.prompt = function(label, type, message, title, callback) {
 	// If label is a list of values to be asked to input
 	if(typeof label === "object") {
 		label.forEach(function(entry) {
-      if(typeof entry == "string"){
-        content.push(entry);
-        return
-      }
+			if (typeof entry === "string") {
+				content.push(entry);
+				return;
+			}
 			if(typeof entry.name !== "string")  // Name in lower case and dashes instead spaces
 				entry.name = entry.label.toLowerCase().replace(/\s+/g, "-");
 			if(typeof entry.type !== "string")
@@ -364,7 +364,7 @@ bootpopup.prompt = function(label, type, message, title, callback) {
 	else {
 		if(typeof type !== "string") type = "text";
 		content.push({ input: { type: type, name: "value", label: label } });
-		callback_tmp = callback_function;   // Overload callback function to return "data.value"
+		var callback_tmp = callback_function;   // Overload callback function to return "data.value"
 		callback_function = function(data) { callback_tmp(data.value); };
 	}
 
@@ -376,7 +376,7 @@ bootpopup.prompt = function(label, type, message, title, callback) {
 			callback_function(data);
 		}
 	});
-}
+};
 
 /**
  * AMD support: require.js

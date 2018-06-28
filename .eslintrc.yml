@@ -1,0 +1,23 @@
+extends: 'eslint:recommended'
+rules:
+  indent:
+    - error
+    - tab
+  linebreak-style:
+    - error
+    - unix
+  no-console:
+    - error
+    - allow:
+      - error
+      - warn
+      - log   # REMOVE ME
+  no-empty:
+    - error
+    - allowEmptyCatch: true
+  no-unused-vars:
+    - error
+    - args: none
+  semi:
+    - error
+    - always
