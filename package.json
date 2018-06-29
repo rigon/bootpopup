@@ -12,11 +12,10 @@
     "dialog"
   ],
   "license": "GPL-3.0",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "scripts": {
     "dist": "uglifyjs --compress --mangle -- bootpopup.js > dist/bootpopup.min.js",
     "lint": "eslint bootpopup.js",
-    "postinstall": "mkdir -p dist && while read file; do cp -Rv $file dist; done < dist/.files.txt",
     "prepublish": "npm run dist",
     "server": "static-server",
     "start": "nodemon --watch bootpopup.js --exec 'npm run dist && npm run server'"
@@ -29,7 +28,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": ">=3",
+    "bootstrap": ">=3 <4",
     "jquery": ">=2"
   },
   "devDependencies": {
