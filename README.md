@@ -2,7 +2,7 @@
 
 Popup dialog boxes for Bootstrap.
 
-See it in action in [BootPopup - Examples](http://www.bootpopup.tk/#examples)
+See it in action in [BootPopup - Examples](http://www.bootpopup.ml/#examples)
 
 
 ## Content
