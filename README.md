@@ -145,8 +145,8 @@ via a dialog box, BootPopup will grab all that data and deliver to you through t
    { p: {class: "bold", text: "Insert data:"}}
    ```
    
-   This will add a `<p></p>` tag to the form. The options of `p` (`{class: "bold", text: "Insert data:"}`) are HTML
-   attributes passed to the HTML tag. There is a special attribute for `text` which is defined as the inner text of
+   This will add a `<p></p>` tag to the form. The options of `p` (`{class: "bold", text: "Insert data:"}`) are [HTML
+   attributes](https://www.scaler.com/topics/attributes-in-html/) passed to the [HTML tag](https://www.scaler.com/topics/html/html-tags/). There is a special attribute for `text` which is defined as the inner text of
    the HTML tag. So, this example is equivalent to the following HTML:
    
    ```html
