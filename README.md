@@ -38,7 +38,7 @@ Shows an alert dialog box.
   - `(function)()` callback when the alert is dismissed
 - **callback**:
   - `(function)()` callback when the alert is dismissed
-
+  -[Alerts - Bootstarp](https://www.interviewbit.com/bootstrap-cheat-sheet/#alerts)
 
 ### `bootpopup.confirm(message[, title[, callback]])`
 
@@ -130,7 +130,7 @@ If some of the callbacks `close`, `ok`, `cancel`, `yes`, `no` are defined, the r
   
 For example, if you define `ok` and `cancel` callbacks, the option `buttons` is automatically configured to
 `["ok", "cancel"]`.
-
+-[Buttons-Bootstrap](https://www.interviewbit.com/bootstrap-cheat-sheet/#buttons)
 
 #### About the **content** option:
 
