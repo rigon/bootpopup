@@ -12,7 +12,7 @@
     "dialog"
   ],
   "license": "MIT",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "scripts": {
     "dist": "mkdir dist && uglifyjs --compress --mangle -- bootpopup.js > dist/bootpopup.min.js",
     "lint": "eslint bootpopup.js",
@@ -21,7 +21,8 @@
     "start": "nodemon --watch bootpopup.js --exec 'npm run dist && npm run serve'"
   },
   "files": [
-    "dist/bootpopup.min.js"
+    "dist/bootpopup.min.js",
+    "index.html"
   ],
   "peerDependencies": {
     "bootstrap": "^3.4.1",
