@@ -6,14 +6,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta charset="UTF-8">
 		
-		<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/kimbie-dark.min.css">
 
-		<script src="dist/jquery.min.js"></script>
-		<script src="dist/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+		
 		<script src="dist/bootpopup.min.js"></script>
-
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/kimbie.dark.min.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 
 		<style type="text/css">
 			body {
@@ -62,9 +62,12 @@
 			#paypal-link > img {
 				width: 100%;
 			}
+			.bordered {
+				border: 10px solid red;
+			}
 		</style>
-    </head>
-    <body>
+	</head>
+	<body>
 		
 		<!-- Fixed navbar -->
 		<nav class="navbar navbar-default navbar-fixed-top">
@@ -80,8 +83,8 @@
 						<li><a href="#home" data-scrollto="body,html">Home</a></li>
 						<li><a href="#how-to-use" data-scrollto="#how-to-use">How to Use</a></li>
 						<li class="dropdown">
-          					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-								  Examples <span class="caret"></span>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								Examples <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
 								<li><a href="#alert" data-scrollto="#alert">Alert</a></li>
@@ -234,7 +237,7 @@
                     content: [ { img: {src: $(&apos;#link&apos;).val(), id: &apos;image&apos;, width: &apos;100%&apos;}} ],
                     before: function(window) {
                         if($(&quot;#border&quot;).prop(&quot;checked&quot;))
-                            $(&quot;#image&quot;).attr(&quot;style&quot;, &quot;border: 10px solid red&quot;);
+                            $(&quot;#image&quot;).addClass(&quot;bordered&quot;);
                     }
                 });
             }
@@ -317,7 +320,7 @@
 									content: [ { img: {src: $('#link').val(), id: "image", width: "100%" }} ],
 									before: function(window) {
 										if($('#border').prop('checked'))
-											$('#image').attr('style', 'border: 10px solid red');
+											$('#image').addClass("bordered");
 									}
 								});
 							}
@@ -351,7 +354,7 @@
 			});
 		</script>
 		
-		<script>hljs.initHighlightingOnLoad();</script>
+		<script>hljs.highlightAll();</script>
 
 		<!-- PayPal Donations -->
 		<form id="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
