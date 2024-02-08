@@ -231,7 +231,7 @@
         { button: {name: &quot;button&quot;, value: &quot;Open image&quot;, class: &quot;btn btn-info&quot;, onclick: function() {
                 bootpopup({
                     title: $(&apos;#title&apos;).val(),
-                    content: [ { img: {src: $(&apos;#link&apos;).val()}} ],
+                    content: [ { img: {src: $(&apos;#link&apos;).val(), id: &apos;image&apos;, width: &apos;100%&apos;}} ],
                     before: function(window) {
                         if($(&quot;#border&quot;).prop(&quot;checked&quot;))
                             $(&quot;#image&quot;).attr(&quot;style&quot;, &quot;border: 10px solid red&quot;);
@@ -314,7 +314,7 @@
 						{ button: {name: "button", value: "Open image", class: "btn btn-info", onclick: function() {
 								bootpopup({
 									title: $('#title').val(),
-									content: [ { img: {src: $('#link').val(), id: "image"}} ],
+									content: [ { img: {src: $('#link').val(), id: "image", width: "100%" }} ],
 									before: function(window) {
 										if($('#border').prop('checked'))
 											$('#image').attr('style', 'border: 10px solid red');
